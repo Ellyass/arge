@@ -394,6 +394,44 @@ class TeklifController extends Controller
             }
         }
 
+        if ($request->product == 3) {
+
+            $updates = Offer::where('id', $request->offer_id)->update([
+                'customer_id' => $request->customer_id,
+                'user_id' => $seller->user_id,
+                'target_seller_id' => $request->target_Seller_id,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
+                'offer_date' => $request->offer_date,
+                'product' => $request->product,
+                'offer_status' => '1',
+                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+                'accept_type' => null,
+            ]);
+
+
+            if ($updates) {
+                $update = OfferFile::create([
+                    'customer_id' => $request->customer_id,
+                    'offer_id' => $offer->id,
+                ]);
+
+                if ($update) {
+                    $explanations = Explanation::create([
+                        'offer_id' => $request->offer_id,
+                        'date' => $request->offer_date,
+                        'explanation' => $request->explanation
+                    ]);
+                }
+            }
+
+            if ($explanations) {
+                return redirect(route('offer_index'))->with('success', 'Güncelleme İşlemi Başarılı');
+            } else {
+                return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
+            }
+        }
+
         if ($request->product == 4) {
 
 
@@ -451,6 +489,43 @@ class TeklifController extends Controller
             }
         }
 
+        if ($request->product == 5) {
+            $updates = Offer::where('id', $request->offer_id)->update([
+                'customer_id' => $request->customer_id,
+                'user_id' => $seller->user_id,
+                'target_seller_id' => $request->target_Seller_id,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
+                'offer_date' => $request->offer_date,
+                'product' => $request->product,
+                'offer_status' => '1',
+                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+                'accept_type' => null,
+            ]);
+
+
+            if ($updates) {
+                $update = OfferFile::create([
+                    'customer_id' => $request->customer_id,
+                    'offer_id' => $offer->id,
+                ]);
+
+                if ($update) {
+                    $explanations = Explanation::create([
+                        'offer_id' => $request->offer_id,
+                        'date' => $request->offer_date,
+                        'explanation' => $request->explanation
+                    ]);
+                }
+            }
+
+            if ($explanations) {
+                return redirect(route('offer_index'))->with('success', 'Güncelleme İşlemi Başarılı');
+            } else {
+                return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
+            }
+        }
+
         if ($request->product == 6) {
 
             File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
@@ -493,6 +568,78 @@ class TeklifController extends Controller
                     ]);
                 }
             }
+            if ($explanations) {
+                return redirect(route('offer_index'))->with('success', 'Güncelleme İşlemi Başarılı');
+            } else {
+                return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
+            }
+        }
+
+        if ($request->product == 7) {
+            $updates = Offer::where('id', $request->offer_id)->update([
+                'customer_id' => $request->customer_id,
+                'user_id' => $seller->user_id,
+                'target_seller_id' => $request->target_Seller_id,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
+                'offer_date' => $request->offer_date,
+                'product' => $request->product,
+                'offer_status' => '1',
+                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+                'accept_type' => null,
+            ]);
+
+            if ($updates) {
+                $update = OfferFile::create([
+                    'customer_id' => $request->customer_id,
+                    'offer_id' => $offer->id,
+                ]);
+
+                if ($update) {
+                    $explanations = Explanation::create([
+                        'offer_id' => $request->offer_id,
+                        'date' => $request->offer_date,
+                        'explanation' => $request->explanation
+                    ]);
+                }
+            }
+
+            if ($explanations) {
+                return redirect(route('offer_index'))->with('success', 'Güncelleme İşlemi Başarılı');
+            } else {
+                return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
+            }
+        }
+
+        if ($request->product == 9) {
+            $updates = Offer::where('id', $request->offer_id)->update([
+                'customer_id' => $request->customer_id,
+                'user_id' => $seller->user_id,
+                'target_seller_id' => $request->target_Seller_id,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
+                'offer_date' => $request->offer_date,
+                'product' => $request->product,
+                'offer_status' => '1',
+                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+                'accept_type' => null,
+            ]);
+
+            if ($updates) {
+                $update = OfferFile::create([
+                    'customer_id' => $request->customer_id,
+                    'offer_id' => $offer->id,
+                ]);
+
+                if ($update) {
+                    $explanations = Explanation::create([
+                        'offer_id' => $request->offer_id,
+                        'date' => $request->offer_date,
+                        'explanation' => $request->explanation
+                    ]);
+                }
+            }
+
             if ($explanations) {
                 return redirect(route('offer_index'))->with('success', 'Güncelleme İşlemi Başarılı');
             } else {
@@ -600,6 +747,42 @@ class TeklifController extends Controller
             }
             if ($explanations) {
                 return response()->download($path);
+            } else {
+                return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
+            }
+        }
+
+        if ($request->product == 12) {
+            $updates = Offer::where('id', $request->offer_id)->update([
+                'customer_id' => $request->customer_id,
+                'user_id' => $seller->user_id,
+                'target_seller_id' => $request->target_Seller_id,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
+                'offer_date' => $request->offer_date,
+                'product' => $request->product,
+                'offer_status' => '1',
+                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+                'accept_type' => null,
+            ]);
+
+            if ($updates) {
+                $update = OfferFile::create([
+                    'customer_id' => $request->customer_id,
+                    'offer_id' => $offer->id,
+                ]);
+
+                if ($update) {
+                    $explanations = Explanation::create([
+                        'offer_id' => $request->offer_id,
+                        'date' => $request->offer_date,
+                        'explanation' => $request->explanation
+                    ]);
+                }
+            }
+
+            if ($explanations) {
+                return redirect(route('offer_index'))->with('success', 'Güncelleme İşlemi Başarılı');
             } else {
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }

@@ -87,6 +87,155 @@
                 </div>
                 <!-- teşvik bitiş-->
 
+                <div id="kvkk">
+                    <form action="{{route('offer_update')}}" method="POST">
+                        @csrf
+
+                        <input type="hidden" name="product" value="2">
+                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
+                            <select class="form-control" name="target_Seller_id">
+                                @foreach($sellers as $seller)
+                                    <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div id="new_kvkk">
+                            <input type="hidden" name="offer_amount" class="form-control" value="1">
+
+                            <!--birim fiyatı varsayılan 1 olarak tanımlanacak -->
+
+                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Ücret</label>
+                                <input type="number" name="offer_money" class="form-control">
+                            </div>
+
+                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Yüzdelik</label>
+                                <input type="number" name="yuzdelik" class="form-control">
+                            </div>
+                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Konaklama Durum</label>
+                                <select class="form-control" name="home">
+                                    <option value="(Konaklama tarafımıza aittir)">Konaklama TARAFIMIZA aittir</option>
+                                    <option value="(Konaklama tarafınıza aittir)">Konaklama TARAFINIZA aittir</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Penetrasyon</label>
+                                <select class="form-control" name="penetrasyon">
+                                    <option value="var">Penetrasyon Testi Var</option>
+                                    <option selected value="yok">Penetrasyon Testi Yok</option>
+
+                                </select>
+                            </div>
+
+                            <div id="penetrasyon_test_ucret">
+                                <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                    <label for="exampleInputPassword1">Penetrasyon Testi Ücreti</label>
+                                    <select class="form-control" name="penetrasyon_ucret_sql">
+                                        <option selected value="0">Seçiniz</option>
+                                        <option value="ucretVar">Penetrasyon Test Ücreti Var</option>
+                                        <option value="ucretYok">Penetrasyon Test Ücreti Yok</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="ucret_var" class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Penetrasyon Testi Ücreti Giriniz</label>
+                                <input class="form-control" type="text" name="penetrasyon_ucreti">
+                            </div>
+
+                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">KDV</label>
+                                <select name="kdv" class="form-control">
+                                    <option value="KDV DAHİLDİR">KDV DAHİLDİR</option>
+                                    <option value="KDV DAHİL DEĞİLDİR">KDV DAHİL DEĞİLDİR</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
+                                <input type="date" name="offer_date" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Açıklama Giriniz</label>
+                            <input type="text" name="offer_explanation" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
+                            <button class="btn btn-success gonder">Teklifi Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- kvkk bitiş-->
+
+                <div id="egitim">
+
+                    <form action="{{route('offer_update')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                        <input type="hidden" name="product" value="3">
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
+                            <select class="form-control" name="target_Seller_id">
+                                @foreach($sellers as $seller)
+                                    <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Eğitim Gün Sayısı</label>
+                            <input type="number" name="offer_amount" class="form-control">
+                        </div>
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Birim Fiyatı(Günlük Ücret)</label>
+                            <input type="number" name="offer_money" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">KDV</label>
+                            <select name="kdv" class="form-control">
+                                <option value="Aylık">KDV DAHİL</option>
+                                <option value="Yıllık">KDV DAHİL DEĞİL</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
+                            <input type="date" name="offer_date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Açıklama Giriniz</label>
+                            <input type="text" name="explanation" class="form-control">
+                        </div>
+
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
+                            <button class="btn btn-success">Teklif Kaydet</button>
+                        </div>
+
+                    </form>
+                </div>
+                <!--egitim bitis-->
+
                 <div id="bordrolama">
                     <form action="{{route('offer_update')}}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -180,11 +329,179 @@
                 </div>
                 <!--bodrolama bitiş-->
 
-                <div id="kvkk">
+                <div id="danismanlik">
+                    <form action="{{route('danismanlik_post')}}" method="POST">
+                        @csrf
+
+                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                        <input type="hidden" name="product" value="5">
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
+                            <select class="form-control" name="target_Seller_id">
+                                @foreach($sellers as $seller)
+                                    <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <input type="hidden" name="offer_amount" class="form-control" value="1">
+
+                        <!--birim fiyatı varsayılan 1 olarak tanımlanacak -->
+                        <div class="col-md-5 col-sm-3 col-xs-12">
+                            <label for="exampleInputPassword1">Aylık/Net</label>
+                            <select class="form-control col-md-5 col-sm-3 col-xs-12 " name="danismanlik_type">
+                                <option selected value="seç">Seçiniz</option>
+                                <option value="Aylık">Aylık</option>
+                                <option value="">Net Ücret</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Ücret</label>
+                            <input type="number" name="offer_money" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Yüzdelik</label>
+                            <input type="number" name="yuzdelik" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Konaklama Durum</label>
+                            <select class="form-control" name="home">
+                                <option value="(Konaklama tarafımıza aittir)">Konaklama tarafımıza aittir</option>
+                                <option value="(Konaklama tarafınıza aittir)">Konaklama tarafınıza aittir</option>
+                                <option value="">bos</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">KDV</label>
+                            <select name="kdv" class="form-control">
+                                <option value="KDV DAHİLDİR">KDV DAHİLDİR</option>
+                                <option value="KDV DAHİL DEĞİLDİR">KDV DAHİL DEĞİLDİR</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
+                            <input type="date" required name="offer_date" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Açıklama Giriniz</label>
+                            <input type="text" name="explanation" class="form-control">
+                        </div>
+
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
+                            <button class="btn btn-success">Teklif Kaydet</button>
+                        </div>
+
+                    </form>
+                </div>
+                <!--danismanlik bitis-->
+
+                <div id="ikmetrik">
+
+                    <form action="{{route('offer_update')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                        <input type="hidden" name="product" value="6">
+                        <input type="hidden" name="new_tesvik_offer" value="new_tesvik">
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
+                            <select class="form-control" name="target_Seller_id">
+                                @foreach($sellers as $seller)
+                                    <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">İlgili Alıcı</label>
+                            <input type="text" name="alici" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12">
+                            <label for="exampleInputPassword1">Anlaşma Türü</label>
+                            <select class="form-control" name="accept_type">
+                                <option value="null">Seçiniz</option>
+                                <option value="Aylık">Aylık</option>
+                                <option value="Yıllık">Yıllık</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
+                            <input type="date" name="offer_date" class="form-control" required>
+                        </div>
+
+                        <div id="month" class="form-group col-md-5 col-sm-3 col-xs-12">
+                            <label for="exampleInputPassword1">Aylık</label>
+                            <select class="form-control" name="month">
+                                <option selected value="">Seçiniz</option>
+                                <option value="50">0-20</option>
+                                <option value="5">21-300</option>
+                                <option value="4">301-1000</option>
+                                <option value="2">1001-5000</option>
+                                <option value="1">5000+</option>
+                            </select>
+
+                            <div style="margin-top: 10px; margin-right: 15px;" class="col-md-6 col-sm-3 col-xs-12">
+                                <label for="">Belirlenen Ücreti Giriniz</label>
+                                <input class="form-control" type="number" name="month_free">
+                            </div>
+                        </div>
+
+                        <div id="year" class="form-group col-md-5 col-sm-3 col-xs-12">
+                            <label for="exampleInputPassword1">Yıllık</label>
+                            <select class="form-control" name="year">
+                                <option selected value="">Seçiniz</option>
+                                <option value="40">0-20</option>
+                                <option value="4">21-300</option>
+                                <option value="3.2">301-1000</option>
+                                <option value="100000">1001-5000</option>
+                                <option value="1">5000+</option>
+                            </select>
+
+                            <div style="margin-top: 10px;" class="col-md-6 col-sm-3 form-group">
+                                <label for="">Belirlenen Ücreti Giriniz</label>
+                                <input class="form-control" type="number" name="year_free">
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="kdv" value="0">
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Teklif Dosyası </label>
+                            <input type="file" name="offer_file" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Açıklama Giriniz</label>
+                            <input type="text" name="explanation" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
+                            <button class="btn btn-success">Teklif Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+                <!--ikmetrik Bitiş-->
+
+                <div id="iys">
                     <form action="{{route('offer_update')}}" method="POST">
                         @csrf
 
-                        <input type="hidden" name="product" value="2">
+                        <input type="hidden" name="product" value="7">
                         <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
                         <input type="hidden" name="offer_id" value="{{$offer->id}}">
 
@@ -197,79 +514,124 @@
                             </select>
                         </div>
 
+                        <input type="hidden" name="offer_amount" class="form-control" value="1">
 
-                        <div id="new_kvkk">
-                            <input type="hidden" name="offer_amount" class="form-control" value="1">
+                        <!--birim fiyatı varsayılan 1 olarak tanımlanacak -->
 
-                            <!--birim fiyatı varsayılan 1 olarak tanımlanacak -->
-
-                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                <label for="exampleInputPassword1">Ücret</label>
-                                <input type="number" name="offer_money" class="form-control">
-                            </div>
-
-                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                <label for="exampleInputPassword1">Yüzdelik</label>
-                                <input type="number" name="yuzdelik" class="form-control">
-                            </div>
-                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                <label for="exampleInputPassword1">Konaklama Durum</label>
-                                <select class="form-control" name="home">
-                                    <option value="(Konaklama tarafımıza aittir)">Konaklama TARAFIMIZA aittir</option>
-                                    <option value="(Konaklama tarafınıza aittir)">Konaklama TARAFINIZA aittir</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                <label for="exampleInputPassword1">Penetrasyon</label>
-                                <select class="form-control" name="penetrasyon">
-                                    <option value="var">Penetrasyon Testi Var</option>
-                                    <option selected value="yok">Penetrasyon Testi Yok</option>
-
-                                </select>
-                            </div>
-
-                            <div id="penetrasyon_test_ucret">
-                                <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                    <label for="exampleInputPassword1">Penetrasyon Testi Ücreti</label>
-                                    <select class="form-control" name="penetrasyon_ucret_sql">
-                                        <option selected value="0">Seçiniz</option>
-                                        <option value="ucretVar">Penetrasyon Test Ücreti Var</option>
-                                        <option value="ucretYok">Penetrasyon Test Ücreti Yok</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div id="ucret_var" class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                <label for="exampleInputPassword1">Penetrasyon Testi Ücreti Giriniz</label>
-                                <input class="form-control" type="text" name="penetrasyon_ucreti">
-                            </div>
-
-                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                <label for="exampleInputPassword1">KDV</label>
-                                <select name="kdv" class="form-control">
-                                    <option value="KDV DAHİLDİR">KDV DAHİLDİR</option>
-                                    <option value="KDV DAHİL DEĞİLDİR">KDV DAHİL DEĞİLDİR</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                                <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
-                                <input type="date" name="offer_date" class="form-control">
-                            </div>
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Ücret</label>
+                            <input type="number" name="offer_money" class="form-control">
                         </div>
 
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Yüzdelik</label>
+                            <input type="text" name="yuzdelik" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">KDV</label>
+                            <select name="kdv" class="form-control">
+                                <option value="1">KDV DAHİL</option>
+                                <option value="0">KDV DAHİL DEĞİL</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
+                            <input type="date" required name="offer_date" class="form-control">
+                        </div>
 
                         <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
                             <label for="exampleInputPassword1">Açıklama Giriniz</label>
-                            <input type="text" name="offer_explanation" class="form-control">
+                            <input type="text" name="explanation" class="form-control">
                         </div>
 
                         <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
-                            <button class="btn btn-success gonder">Teklifi Kaydet</button>
+                            <button class="btn btn-success">Teklif Kaydet</button>
                         </div>
                     </form>
                 </div>
-                <!-- kvkk bitiş-->
+                <!--iys Bitiş-->
+
+                <div id="performans">
+                    <form action="{{route('offer_update')}}" method="POST">
+                        @csrf
+
+                        <input type="hidden" name="product" value="9">
+                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="">Pazarlamacı Seç</label>
+                            <select class="form-control" name="target_Seller_id">
+                                @foreach($sellers as $seller)
+                                    <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Sabit/Yıllık Ücret</label>
+                            <select class="form-control" name="accept_type">
+                                <option selected value="null">Seçiniz</option>
+                                <option value="Aylık">Aylık Ücret</option>
+                                <option value="Yıllık">Yıllık Ücret</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <div class="form-group">
+                                <label for="">Çalışan Sayısı</label>
+                                <input type="number" class="form-control" name="employee_count" required>
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" name="offer_amount" class="form-control" value="1">
+
+                        <div id="performans_s_p" class="form-group col-md-5 col-sm-3 col-xs-12 col">
+
+                            <div id="P_aylik" class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Aylık Ücret : </label>
+                            </div>
+
+                            <div id="P_yillik" class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <label for="exampleInputPassword1">Yıllık Oranı : </label>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-3 col-xs-12 col">
+                                <input type="number" name="offer_money" minlength="1" maxlength="100"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="">KDV</label>
+                            <select name="kdv" class="form-control">
+                                <option value="KDV DAHİLDİR">KDV DAHİLDİR</option>
+                                <option value="KDV DAHİL DEĞİLDİR">KDV DAHİL DEĞİLDİR</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Teklif Tarihini Girinizz</label>
+                            <input type="date" name="offer_date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Açıklama Giriniz</label>
+                            <input type="text" name="explanation" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
+                            <button class="btn btn-primary">word Oluştur</button>
+                        </div>
+                    </form>
+                </div>
+                <!--performans bitiş-->
 
                 <div id="ebordro">
                     <form action="{{route('offer_update')}}" method="POST">
@@ -412,6 +774,57 @@
                 </div>
                 <!--dkvkk bitiş-->
 
+                <div id="dtesvik">
+
+                    <form action="{{route('offer_update')}}" method="POST">
+                        @csrf
+
+                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                        <input type="hidden" name="product" value="12">
+                        <input type="hidden" name="teklif_new" value="Evet">
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
+                            <select class="form-control" name="target_Seller_id">
+                                @foreach($sellers as $seller)
+                                    <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Ücret</label>
+                            <input type="number" name="offer_money" class="form-control" value="">
+                        </div>
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">KDV</label>
+                            <select name="kdv" class="form-control">
+                                <option value="KDV DAHİL">KDV DAHİL</option>
+                                <option value="KDV DAHİL DEĞİL">KDV DAHİL DEĞİL</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Teklif Tarihini Girinizz</label>
+                            <input type="date" required name="offer_date" class="form-control" >
+                        </div>
+
+
+                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                            <label for="exampleInputPassword1">Açıklama Giriniz</label>
+                            <input type="text" name="explanation" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
+                            <button class="btn btn-success">Teklif kaydet</button>
+                        </div>
+                    </form>
+                </div>
+                <!--dtesvik bitiş-->
+
                 <div id="mesemtesvik">
                     <form action="{{route('offer_update')}}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -495,99 +908,6 @@
                 <!-- Mesem Bitiş-->
 
 
-                <div  id="ikmetrik">
-
-                    <form action="{{route('offer_update')}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
-                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
-                        <input type="hidden" name="product" value="6">
-                        <input type="hidden" name="new_tesvik_offer" value="new_tesvik">
-
-
-
-                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col" >
-                            <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
-                            <select class="form-control" name="target_Seller_id" >
-                                @foreach($sellers as $seller)
-                                    <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-
-                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col" >
-                            <label for="exampleInputPassword1">İlgili Alıcı</label>
-                            <input type="text" name="alici" class="form-control">
-                        </div>
-
-                        <div class="form-group col-md-5 col-sm-3 col-xs-12" >
-                            <label for="exampleInputPassword1">Anlaşma Türü</label>
-                            <select class="form-control" name="accept_type" >
-                                <option value="null">Seçiniz</option>
-                                <option value="Aylık">Aylık </option>
-                                <option value="Yıllık">Yıllık</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col" >
-                            <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
-                            <input type="date" name="offer_date" class="form-control" required>
-                        </div>
-
-                        <div id="month" class="form-group col-md-5 col-sm-3 col-xs-12" >
-                            <label for="exampleInputPassword1">Aylık</label>
-                            <select class="form-control" name="month">
-                                <option selected value="">Seçiniz</option>
-                                <option value="50">0-20</option>
-                                <option value="5">21-300</option>
-                                <option value="4">301-1000</option>
-                                <option value="2">1001-5000</option>
-                                <option value="1">5000+</option>
-                            </select>
-
-                            <div style="margin-top: 10px; margin-right: 15px;" class="col-md-6 col-sm-3 col-xs-12"   >
-                                <label for="">Belirlenen Ücreti Giriniz</label>
-                                <input class="form-control"  type="number" name="month_free">
-                            </div>
-                        </div>
-
-                        <div id="year" class="form-group col-md-5 col-sm-3 col-xs-12" >
-                            <label for="exampleInputPassword1">Yıllık</label>
-                            <select class="form-control" name="year" >
-                                <option selected value="">Seçiniz</option>
-                                <option value="40">0-20</option>
-                                <option value="4">21-300</option>
-                                <option value="3.2">301-1000</option>
-                                <option value="100000">1001-5000</option>
-                                <option value="1">5000+</option>
-                            </select>
-
-                            <div style="margin-top: 10px;" class="col-md-6 col-sm-3 form-group"  >
-                                <label for="">Belirlenen Ücreti Giriniz</label>
-                                <input class="form-control"  type="number" name="year_free">
-                            </div>
-                        </div>
-
-                        <input type="hidden" name="kdv" value="0">
-
-
-                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                            <label for="exampleInputPassword1">Teklif Dosyası </label>
-                            <input type="file" name="offer_file" class="form-control">
-                        </div>
-
-                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" >
-                            <label for="exampleInputPassword1">Açıklama Giriniz</label>
-                            <input type="text" name="explanation" class="form-control">
-                        </div>
-
-                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
-                            <button  class="btn btn-success">Teklif Kaydet</button>
-                        </div>
-                    </form>
-                </div>
-
             </div>
         </div>
     </section>
@@ -607,7 +927,13 @@
                 $("#dijitalkvkk").hide(1000);
                 $("#mesemtesvik").hide(1000);
                 $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
             }
+
             if ({{$offer->product}} == 2) {
                 $("#bodrolama").hide(1000);
                 $("#kvkk").show(1000);
@@ -616,6 +942,26 @@
                 $("#dijitalkvkk").hide(1000);
                 $("#mesemtesvik").hide(1000);
                 $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
+            }
+
+            if ({{$offer->product == 3}}) {
+                $("#bodrolama").hide(1000);
+                $("#kvkk").hide(1000);
+                $("#tesvik").hide(1000);
+                $("#ebordro").hide(1000);
+                $("#dijitalkvkk").hide(1000);
+                $("#mesemtesvik").hide(1000);
+                $("#ikmetrik").hide(1000);
+                $("#egitim").show(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#dtesvik").hide(1000);
+
             }
 
             if ({{$offer->product}} == 4) {
@@ -626,6 +972,26 @@
                 $("#dijitalkvkk").hide(1000);
                 $("#mesemtesvik").hide(1000);
                 $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
+            }
+
+            if ({{$offer->product}} == 5) {
+                $("#bodrolama").hide(1000);
+                $("#kvkk").hide(1000);
+                $("#tesvik").hide(1000);
+                $("#ebordro").hide(1000);
+                $("#dijitalkvkk").hide(1000);
+                $("#mesemtesvik").hide(1000);
+                $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").show(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
             }
 
             if ({{$offer->product}} == 6) {
@@ -636,6 +1002,39 @@
                 $("#dijitalkvkk").hide(1000);
                 $("#mesemtesvik").hide(1000);
                 $("#ikmetrik").show(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
+            }
+            if ({{$offer->product}} == 7) {
+                $("#bodrolama").hide(1000);
+                $("#kvkk").hide(1000);
+                $("#tesvik").hide(1000);
+                $("#ebordro").hide(1000);
+                $("#dijitalkvkk").hide(1000);
+                $("#mesemtesvik").hide(1000);
+                $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").show(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
+            }
+            if ({{$offer->product}} == 9) {
+                $("#bodrolama").hide(1000);
+                $("#kvkk").hide(1000);
+                $("#tesvik").hide(1000);
+                $("#ebordro").hide(1000);
+                $("#dijitalkvkk").hide(1000);
+                $("#mesemtesvik").hide(1000);
+                $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#performans").show(1000);
+                $("#iys").hide(1000);
+                $("#dtesvik").hide(1000);
             }
 
             if ({{$offer->product}} == 10) {
@@ -646,7 +1045,13 @@
                 $("#dijitalkvkk").hide(1000);
                 $("#mesemtesvik").hide(1000);
                 $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
             }
+
             if ({{$offer->product}} == 11) {
                 $("#bodrolama").hide(1000);
                 $("#kvkk").hide(1000);
@@ -655,7 +1060,28 @@
                 $("#dijitalkvkk").show(1000);
                 $("#mesemtesvik").hide(1000);
                 $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
             }
+
+            if ({{$offer->product}} == 12) {
+                $("#bodrolama").hide(1000);
+                $("#kvkk").hide(1000);
+                $("#tesvik").hide(1000);
+                $("#ebordro").hide(1000);
+                $("#dijitalkvkk").hide(1000);
+                $("#mesemtesvik").hide(1000);
+                $("#ikmetrik").hide(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").show(1000);
+            }
+
 
             if ({{$offer->product}} == 13) {
                 $("#bodrolama").hide(1000);
@@ -665,6 +1091,11 @@
                 $("#dijitalkvkk").hide(1000);
                 $("#mesemtesvik").show(1000);
                 $("#ikmetrik").show(1000);
+                $("#egitim").hide(1000);
+                $("#danismanlik").hide(1000);
+                $("#iys").hide(1000);
+                $("#performans").hide(1000);
+                $("#dtesvik").hide(1000);
             }
         });
 
@@ -796,20 +1227,20 @@
     <!--dkvkk-->
 
     <script>
-        $(document).ready(function(){
-            $("select").change(function(){
-                $( "select option:selected").each(function(){
+        $(document).ready(function () {
+            $("select").change(function () {
+                $("select option:selected").each(function () {
 
-                    if($(this).attr("value")=="Aylık"){
+                    if ($(this).attr("value") == "Aylık") {
                         $("#month").show();
                         $("#year").hide();
                     }
-                    if($(this).attr("value")=="Yıllık"){
+                    if ($(this).attr("value") == "Yıllık") {
 
                         $("#month").hide();
                         $("#year").show();
                     }
-                    if($(this).attr("value")=="null"){
+                    if ($(this).attr("value") == "null") {
                         $("#month").hide();
                         $("#year").hide();
                     }
@@ -818,6 +1249,31 @@
         });
     </script>
     <!--ikmetrik-->
+
+    <script>
+        $(document).ready(function () {
+            $("select").change(function () {
+                $("select option:selected").each(function () {
+                    if ($(this).attr("value") == "Aylık") {
+                        $("#P_aylik").show();
+                        $("#P_yillik").hide();
+                        $("#performans_s_p").show();
+                    }
+                    if ($(this).attr("value") == "Yüzdelik") {
+                        $("#P_aylik").hide();
+                        $("#P_yillik").show();
+                        $("#performans_s_p").show();
+                    }
+                    if ($(this).attr("value") == "null") {
+                        $("#P_aylik").hide();
+                        $("#P_yillik").hide();
+                        $("#performans_s_p").hide();
+                    }
+                });
+            }).change();
+        });
+    </script>
+    <!--performans-->
 
 @endsection
 @section('css')@endsection

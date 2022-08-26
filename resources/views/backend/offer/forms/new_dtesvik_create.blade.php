@@ -52,7 +52,7 @@
                 </div>
 
 
-                <div class="form-group col-md-5 col-sm-3 col-xs-12 col" >
+                <div class="form-group col-md-10 col-sm-3 col-xs-12 col" >
                     <label for="exampleInputPassword1">Açıklama Giriniz</label>
                     <input type="text" name="explanation" class="form-control">
                 </div>

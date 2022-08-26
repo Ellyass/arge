@@ -51,7 +51,7 @@
 
             <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
                 <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
-                <input type="date" name="offer_date" class="form-control">
+                <input type="date" name="offer_date" class="form-control" required>
             </div>
 
             <div class="form-group col-md-10 col-sm-3 col-xs-12 col">

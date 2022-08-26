@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/logout', 'Backend\LoginController@logout')->name('logout');
+Route::post('/update/{id}', 'Backend\CustomersController@update')->name('customer_update');
+Route::get('/destroy/{id}', 'Backend\CustomersController@destroy')->name('customer_destroy');
+Route::get('/edit/{id}', 'Backend\CustomersController@edit')->name('customer_edit');
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/', 'Backend\DefaultController@index')->name('admin.Index');
@@ -22,12 +27,6 @@ Route::prefix('admin')->group(function () {
 });
 
 
-Route::get('/logout', 'Backend\LoginController@logout')->name('logout');
-
-
-Route::post('/update/{id}', 'Backend\CustomersController@update')->name('customer_update');
-Route::get('/destroy/{id}', 'Backend\CustomersController@destroy')->name('customer_destroy');
-Route::get('/edit/{id}', 'Backend\CustomersController@edit')->name('customer_edit');
 
 
 Route::get('/email/destroy/{id}', 'Backend\CustomersEmailcontroller@destroy')->name('email_destroy');
@@ -35,19 +34,32 @@ Route::post('email/update/post/{id}', 'Backend\CustomersEmailcontroller@update')
 Route::get('/email/edit/{id}', 'Backend\CustomersEmailcontroller@edit')->name('email_edit');
 
 
-Route::get('/offers', 'Backend\TeklifController@index')->name('offer_index');
-Route::get('/offers/create', 'Backend\TeklifController@create')->name('offer_create');
-Route::get('/offers/create1', 'Backend\TeklifController@newcreate')->name('offer_new_create');
-Route::post('/offers/query', 'Backend\TeklifController@jquery')->name('offer_jquery');
-Route::get('/offer/status/{id}', 'Backend\TeklifController@status')->name('offer_status');
-Route::get('/offers/delete/{id}', 'Backend\TeklifController@delete')->name('offer_delete');
-Route::get('/offers/file/{id}', 'Backend\TeklifController@file')->name('offer_file');
-Route::post('/offer/import', 'Backend\TeklifController@import')->name('offer_import');
-Route::get('/offer/edit/{id}', 'Backend\TeklifController@edit')->name('offer_edit');
-Route::post('/offer/update', 'Backend\TeklifController@update')->name('offer_update');
-Route::post('/offer/status/up/{id}', 'Backend\TeklifController@up')->name('status_up');
-//Route::get('/create/tesvik','Backend\TeklifController@offersIndex')->name('load_tesvik');
-//Route::get('contract/upload/{id}','Backend\TeklifController@contract_upload')->name('contract_upload');
+
+
+Route::prefix('offer')->group(function () {
+    Route::get('/status/{id}', 'Backend\TeklifController@status')->name('offer_status');
+    Route::post('/import', 'Backend\TeklifController@import')->name('offer_import');
+    Route::get('/edit/{id}', 'Backend\TeklifController@edit')->name('offer_edit');
+    Route::post('/update', 'Backend\TeklifController@update')->name('offer_update');
+    Route::post('/status/up/{id}', 'Backend\TeklifController@up')->name('status_up');
+});
+
+
+
+
+
+Route::prefix('offers')->group(function (){
+Route::get('', 'Backend\TeklifController@index')->name('offer_index');
+Route::get('/create', 'Backend\TeklifController@create')->name('offer_create');
+Route::get('/create1', 'Backend\TeklifController@newcreate')->name('offer_new_create');
+Route::post('/query', 'Backend\TeklifController@jquery')->name('offer_jquery');
+Route::get('/delete/{id}', 'Backend\TeklifController@delete')->name('offer_delete');
+Route::get('/file/{id}', 'Backend\TeklifController@file')->name('offer_file');
+});
+
+
+
+
 
 
 Route::get('/create_tesvik/{id}', 'Backend\TeklifController@offersIndex')->name('tesvik_create');
@@ -65,8 +77,7 @@ Route::get('/create_dkvkk{id}', 'Backend\TeklifController@offersIndex')->name('d
 Route::post('/offers/delete/{id}', 'Backend\TeklifController@offer_detail_delete')->name('detail_offer_delete');
 
 
-Route::get('pdf_index', 'Backend\DocumentController@pdf')->name('pdf_index');
-Route::get('/document/convert_word_to_pdf', 'Backend\DocumentController@convert')->name('document_wordtopdf');
+
 
 Route::post('/word_tesvik', 'Backend\DocumentController@tesvik_word_data')->name('tesvik_post');
 Route::post('/word_kvkk', 'Backend\DocumentController@kvkk_word_data')->name('kvkk_post');
@@ -87,3 +98,11 @@ Route::post('mailchimpDelete', 'MailChimpController@mailchimpDelete')->name('mai
 
 
 Route::get('/test', 'TestController@test');
+
+
+Route::get('pdf_index', 'Backend\DocumentController@pdf')->name('pdf_index');
+Route::get('/document/convert_word_to_pdf', 'Backend\DocumentController@convert')->name('document_wordtopdf');
+
+
+//Route::get('/create/tesvik','Backend\TeklifController@offersIndex')->name('load_tesvik');
+//Route::get('contract/upload/{id}','Backend\TeklifController@contract_upload')->name('contract_upload');

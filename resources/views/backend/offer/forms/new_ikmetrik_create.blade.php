@@ -9,7 +9,7 @@
 
     <form action="{{route('ikmetrik_post')}}" method="POST">
         @csrf
-        <div class="form-group col-md-5 col-sm-3 col-xs-12" >
+        <div class="form-group col-md-6 col-sm-3 col-xs-12" >
             <label for="exampleInputPassword1">Firma Seciniz</label>
             <select class="form-control" name="customer_id">
                 @foreach($customers as $customer )
@@ -20,7 +20,7 @@
 
         <input type="hidden" name="product" value="6">
 
-        <div class="form-group col-md-5 col-sm-3 col-xs-12 col" >
+        <div class="form-group col-md-6 col-sm-3 col-xs-12 col" >
             <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
             <select class="form-control" name="target_Seller_id" >
                 @foreach($sellers as $seller)
@@ -29,7 +29,7 @@
             </select>
         </div>
 
-        <div class="form-group col-md-5 col-sm-3 col-xs-12" >
+        <div class="form-group col-md-6 col-sm-3 col-xs-12" >
             <label for="exampleInputPassword1">Anlaşma Türü</label>
             <select class="form-control" name="accept_type" >
                 <option value="null">Seçiniz</option>
@@ -38,12 +38,12 @@
             </select>
         </div>
 
-        <div class="form-group col-md-5 col-sm-3 col-xs-12 col" >
+        <div class="form-group col-md-6 col-sm-3 col-xs-12 col" >
             <label for="exampleInputPassword1">İlgili Alıcı</label>
             <input type="text" name="alici" class="form-control">
         </div>
 
-        <div id="month" class="form-group col-md-5 col-sm-3 col-xs-12" >
+        <div id="month" class="form-group col-md-6 col-sm-3 col-xs-12" >
             <label for="exampleInputPassword1">Aylık</label>
             <select class="form-control" name="month">
                 <option selected value="">Seçiniz</option>
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div id="year" class="form-group col-md-5 col-sm-3 col-xs-12" >
+        <div id="year" class="form-group col-md-6 col-sm-3 col-xs-12" >
             <label for="exampleInputPassword1">Yıllık</label>
             <select class="form-control" name="year" >
                 <option selected value="">Seçiniz</option>
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class="form-group col-md-5 col-sm-3 col-xs-12 col" >
+        <div class="form-group col-md-6 col-sm-3 col-xs-12 col" >
             <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
             <input type="date" name="offer_date" class="form-control">
         </div>

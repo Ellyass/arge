@@ -34,58 +34,6 @@ class DocumentController extends Controller
         $product = Product::where('id', $request->product_id)->first();
         $offer = Offer::where('id', $request->offer_id)->first();
         $explanation = Explanation::where('id', $request->explanation_id)->first();
-//
-//        if ($_POST['new_tesvik_offer'] == 'guncelle')
-//        {
-//            $kdv = $_POST['kdv'];
-//            $birim = 1;
-//            $accept_type = $_POST['accept_type'];
-//            $offer_id = $_POST['offer_id'];
-//            $customer_id = $_POST['customer_id'];
-//            $customer = Customer::find($customer_id);
-//            $customer_name = $customer->name;
-//            $offer_date = $_POST['offer_date'];
-//            $money = $_POST['offer_money'];
-//            $nots = $_POST['offer_not'];
-//            $customer_address = $_POST['customer_address'];
-//
-//            $offer = Offer::where('id',$offer_id)->update([
-//                "customer_id" => $request->customer_id,
-//                "offer_amount" => $birim,
-//                "user_id" => Auth::user()->id,
-//                "accept_type" => $accept_type,
-//                "offer_money" => $request->offer_money,
-//                "offer_total" => $request->offer_money,
-//                "product" => $request->product,
-//                "offer_status" => 1,
-//                "target_seller_id" => $request->target_Seller_id,
-//                'kdv' => $request->kdv,
-//            ]);
-//            $random = rand(0,9999999999);
-//
-//            $offer_file = OfferFile::create([
-//                "customer_id" => $request->customer_id,
-//                "offer_id" => $offer_id,
-//                "offer_file" => $random . '.docx'
-//            ]);
-//
-//            $explanitons = Explanation::create([
-//                'offer_id' => $offer_id,
-//                'explanation' => $request->offer_explanation
-//            ]);
-//
-//            View::share('offer_id', $offer_id);
-//            View::share('money', $money);
-//            View::share('offer_date', $offer_date);
-//            View::share('customer_name', $customer_name);
-//            View::share('accept_type', $accept_type);
-//            View::share('customer_address', $customer_address);
-//            View::share('kdv', $kdv);
-//            View::share('random', $random);
-//
-//
-//            return redirect(route('offer_index'));
-//        }
 
         if ($customer) {
             File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
@@ -135,7 +83,6 @@ class DocumentController extends Controller
 //            return redirect(route('offer_index'));
         }
     }
-
 
     public function kvkk_word_data(Request $request)
     {
@@ -198,6 +145,49 @@ class DocumentController extends Controller
         }
     }
 
+    public function egitim_word_data(Request $request)
+    {
+
+        $customer = Customer::where('id', $request->customer_id)->first();
+        $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
+        $product = Product::where('id', $request->product_id)->first();
+        $offer = Offer::where('id', $request->offer_id)->first();
+        $explanation = Explanation::where('id', $request->explanation_id)->first();
+
+        $offers = Offer::create([
+            'customer_id' => $request->customer_id,
+            'user_id' => $seller->user_id,
+            'target_seller_id' => $request->target_Seller_id,
+            'offer_money' => $request->offer_money,
+            'offer_total' => $request->offer_money,
+            'offer_date' => $request->offer_date,
+            'product' => $request->product,
+            'offer_status' => '1',
+            'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+            'accept_type' => $request->accept_type
+        ]);
+
+        if ($offers) {
+            $offer = OfferFile::create([
+                'customer_id' => $request->customer_id,
+                'offer_id' => $offers->id,
+            ]);
+
+            if ($offer) {
+                $explanations = Explanation::create([
+                    'offer_id' => $offers->id,
+                    'date' => $request->offer_date,
+                    'explanation' => $request->explanation
+                ]);
+            }
+        }
+
+        if ($explanations) {
+            return redirect(route('offer_index'))->with('success', 'İşlem Başarılı');
+        } else {
+            return back()->with('error', 'İşlem Başarısız');
+        }
+    }
 
     public function bordrolama_word_data(Request $request)
     {
@@ -281,8 +271,7 @@ class DocumentController extends Controller
         }
     }
 
-
-    public function mesem_word_data(Request $request)
+    public function danismanlik_word_data(Request $request)
     {
         $customer = Customer::where('id', $request->customer_id)->first();
         $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
@@ -290,62 +279,42 @@ class DocumentController extends Controller
         $offer = Offer::where('id', $request->offer_id)->first();
         $explanation = Explanation::where('id', $request->explanation_id)->first();
 
+        $offers = Offer::create([
+            'customer_id' => $request->customer_id,
+            'user_id' => $seller->user_id,
+            'target_seller_id' => $request->target_Seller_id,
+            'offer_money' => $request->offer_money,
+            'offer_total' => $request->offer_money,
+            'offer_date' => $request->offer_date,
+            'product' => $request->product,
+            'offer_status' => '1',
+            'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+            'accept_type' => $request->accept_type
+        ]);
 
-        if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
-            Settings::setOutputEscapingEnabled(true);
-            $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/mesem.docx');
-            $newtesvik->setValue('customer_name', $customer->name);
-            $newtesvik->setValue('customer_address', $customer->address);
-            $newtesvik->setValue('accept_type', isset($request->accept_type) ? $request->accept_type == 'Aylık' ? number_format($request->offer_money, 2, ',', '.') . ' ₺ ' . '/ ' . $request->accept_type : ' % ' . $request->offer_money : '');
-//            $newtesvik->setValue('deger_money',$request->offer_money);
-            $newtesvik->setValue('kdv', $request->kdv);
-            $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-            //$newtesvik->setValue('offer_explanation', $request->offer_explanation);
-
-
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
-
-
-            $offers = Offer::create([
+        if ($offers) {
+            $offer = OfferFile::create([
                 'customer_id' => $request->customer_id,
-                'user_id' => $seller->user_id,
-                'target_seller_id' => $request->target_Seller_id,
-                'offer_money' => $request->offer_money,
-                'offer_total' => $request->offer_money,
-                'offer_date' => $request->offer_date,
-                'product' => $request->product,
-                'offer_status' => '1',
-                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
-                'accept_type' => $request->accept_type
+                'offer_id' => $offers->id,
             ]);
 
-
-            if ($offers) {
-                $offer = OfferFile::create([
-                    'customer_id' => $request->customer_id,
+            if ($offer) {
+                $explanations = Explanation::create([
                     'offer_id' => $offers->id,
-                    'offer_file' => $path
+                    'date' => $request->offer_date,
+                    'explanation' => $request->explanation
                 ]);
-
-                if ($offer) {
-                    $explanations = Explanation::create([
-                        'offer_id' => $offers->id,
-                        'date' => $request->offer_date,
-                        'explanation' => $request->explanation
-                    ]);
-                }
             }
+        }
 
-            return response()->download($path);
+        if ($explanations) {
+            return redirect(route('offer_index'))->with('success', 'İşlem Başarılı');
+        } else {
+            return back()->with('error', 'İşlem Başarısız');
         }
     }
 
-
-    public function dkvkk_word_data(Request $request)
+    public function ikmetrik_word_data(Request $request)
     {
         $customer = Customer::where('id', $request->customer_id)->first();
         $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
@@ -358,12 +327,10 @@ class DocumentController extends Controller
             File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/dkvkk.docx');
-            $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
+            $newtesvik = new TemplateProcessor('teklif_documents/ikmetrik.docx');
             $newtesvik->setValue('customer_name', $customer->name);
-            $newtesvik->setValue('accept_type', $request->accept_type);
-            $newtesvik->setValue('offer_money', $request->offer_money . ' ₺');
-            $newtesvik->setValue('offer_yazılım', $request->offer_yazılım . ' ₺');
+            $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
+            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
 
             $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
             $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
@@ -374,8 +341,8 @@ class DocumentController extends Controller
                 'customer_id' => $request->customer_id,
                 'user_id' => $seller->user_id,
                 'target_seller_id' => $request->target_Seller_id,
-                'offer_money' => $request->offer_money,
-                'offer_total' => $request->offer_money,
+                'offer_money' => isset($request->month_free) ? $request->month_free : $request->year_free,
+                'offer_total' => isset($request->month_free) ? $request->month_free : $request->year_free,
                 'offer_date' => $request->offer_date,
                 'product' => $request->product,
                 'offer_status' => '1',
@@ -383,7 +350,7 @@ class DocumentController extends Controller
                 'accept_type' => $request->accept_type
             ]);
 
-
+//dd($offers);
             if ($offers) {
                 $offer = OfferFile::create([
                     'customer_id' => $request->customer_id,
@@ -404,6 +371,48 @@ class DocumentController extends Controller
         }
     }
 
+    public function iys_word_data(Request $request)
+    {
+        $customer = Customer::where('id', $request->customer_id)->first();
+        $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
+        $product = Product::where('id', $request->product_id)->first();
+        $offer = Offer::where('id', $request->offer_id)->first();
+        $explanation = Explanation::where('id', $request->explanation_id)->first();
+
+        $offers = Offer::create([
+            'customer_id' => $request->customer_id,
+            'user_id' => $seller->user_id,
+            'target_seller_id' => $request->target_Seller_id,
+            'offer_money' => $request->offer_money,
+            'offer_total' => $request->offer_money,
+            'offer_date' => $request->offer_date,
+            'product' => $request->product,
+            'offer_status' => '1',
+            'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+            'accept_type' => $request->accept_type
+        ]);
+
+        if ($offers) {
+            $offer = OfferFile::create([
+                'customer_id' => $request->customer_id,
+                'offer_id' => $offers->id,
+            ]);
+
+            if ($offer) {
+                $explanations = Explanation::create([
+                    'offer_id' => $offers->id,
+                    'date' => $request->offer_date,
+                    'explanation' => $request->explanation
+                ]);
+            }
+        }
+
+        if ($explanations) {
+            return redirect(route('offer_index'))->with('success', 'İşlem Başarılı');
+        } else {
+            return back()->with('error', 'İşlem Başarısız');
+        }
+    }
 
     public function ebordro_word_data(Request $request)
     {
@@ -468,72 +477,49 @@ class DocumentController extends Controller
         }
     }
 
+    public function performans_word_data(Request $request)
+    {
+        $customer = Customer::where('id', $request->customer_id)->first();
+        $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
+        $product = Product::where('id', $request->product_id)->first();
+        $offer = Offer::where('id', $request->offer_id)->first();
+        $explanation = Explanation::where('id', $request->explanation_id)->first();
 
 
-//    public function performans_word_data(Request $request)
-//    {
-//        $customer=Customer::where('id',$request->customer_id)->first();
-//        $seller=TargetSeller::where('id',$request->target_seller_id)->first();
-//        $offer=Offer::where('id',$request->offer_id)->first();
-//        if($customer) {
-//            File::makeDirectory('teklif_saves/'.$customer->id, 0777, true, true);
-//            Settings::setOutputEscapingEnabled(true);
-//            $random_new_tesvik = rand(0,999999999);
-//            $newtesvik = new TemplateProcessor('teklif_documents/ebordro.docx');
-//            $newtesvik -> setValue('offer_date', date('d.m.Y',strtotime($request->offer_date)));
-//            $newtesvik -> setValue('customer_name',$customer->name);
-//            $newtesvik -> setValue('customer_address',$customer->address);
-//            $newtesvik -> setValue('offer_money',number_format($request->offer_money, 2, ',', '.') .' ₺');
-//            $newtesvik -> setValue('offer_tur',$request->offer_tur);
-//            $newtesvik -> setValue('kdv', $request->kdv);
-//
-//
-//            $newtesvik->saveAs('teklif_saves/'.$customer->id.'/'.$random_new_tesvik.'.docx');
-//
-//            $path = 'teklif_saves/'.$customer->id.'/'.$random_new_tesvik.'.docx';
-//            session(['offer_file_path'=>$path]);
-//
-//
-//            $offers = Offer::create([
-//                'customer_id' => $request->customer_id,
-//                'user_id' => $seller->user_id,
-//                'target_seller_id' => $request->target_Seller_id,
-//                'offer_money' => $request->offer_money,
-//                'offer_total' => $request->offer_money,
-//                'offer_date' => $request->offer_date,
-//                'product' => $request->product,
-//                'offer_status' =>'1',
-//                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
-//                'accept_type' => $request->accept_type
-//            ]);
-//
-//dd($offers);
-//            if ($offers)
-//
-//            {
-//                $offer = OfferFile::create([
-//                    'customer_id' => $request->customer_id,
-//                    'offer_id' => $offers->id,
-//                    'offer_file' => $path
-//                ]);
-//if ($offer)
-//{
-//$explanations = Explanation::create([
-//'offer_id' => $offers->id,
-//'date' => $request->offer_date,
-//'explanation' => $request->explanation
-//]);
-//}
-//            }
-//
-//
-//            return response()->download($path);
-//           return redirect(route('offer_index'));
-//        }
-//    }
+        $offers = Offer::create([
+            'customer_id' => $request->customer_id,
+            'user_id' => $seller->user_id,
+            'target_seller_id' => $request->target_Seller_id,
+            'offer_money' => $request->offer_money,
+            'offer_total' => $request->offer_money,
+            'offer_date' => $request->offer_date,
+            'product' => $request->product,
+            'offer_status' => '1',
+            'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+            'accept_type' => $request->accept_type
+        ]);
 
+        if ($offers) {
+            $offer = OfferFile::create([
+                'customer_id' => $request->customer_id,
+                'offer_id' => $offers->id,
+            ]);
+            if ($offer) {
+                $explanations = Explanation::create([
+                    'offer_id' => $offers->id,
+                    'date' => $request->offer_date,
+                    'explanation' => $request->explanation
+                ]);
+            }
+        }
+        if ($explanations) {
+            return redirect(route('offer_index'))->with('success', 'İşlem Başarılı');
+        } else {
+            return back()->with('error', 'İşlem Başarısız');
+        }
+    }
 
-    public function ikmetrik_word_data(Request $request)
+    public function dkvkk_word_data(Request $request)
     {
         $customer = Customer::where('id', $request->customer_id)->first();
         $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
@@ -546,10 +532,12 @@ class DocumentController extends Controller
             File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/ikmetrik.docx');
-            $newtesvik->setValue('customer_name', $customer->name);
+            $newtesvik = new TemplateProcessor('teklif_documents/dkvkk.docx');
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
+            $newtesvik->setValue('customer_name', $customer->name);
+            $newtesvik->setValue('accept_type', $request->accept_type);
+            $newtesvik->setValue('offer_money', $request->offer_money . ' ₺');
+            $newtesvik->setValue('offer_yazılım', $request->offer_yazılım . ' ₺');
 
             $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
             $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
@@ -560,8 +548,8 @@ class DocumentController extends Controller
                 'customer_id' => $request->customer_id,
                 'user_id' => $seller->user_id,
                 'target_seller_id' => $request->target_Seller_id,
-                'offer_money' => isset($request->month_free) ? $request->month_free : $request->year_free,
-                'offer_total' => isset($request->month_free) ? $request->month_free : $request->year_free,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
                 'offer_date' => $request->offer_date,
                 'product' => $request->product,
                 'offer_status' => '1',
@@ -569,7 +557,7 @@ class DocumentController extends Controller
                 'accept_type' => $request->accept_type
             ]);
 
-//dd($offers);
+
             if ($offers) {
                 $offer = OfferFile::create([
                     'customer_id' => $request->customer_id,
@@ -587,6 +575,114 @@ class DocumentController extends Controller
 
             return response()->download($path);
 //            return redirect(route('offer_index'));
+        }
+    }
+
+    public function dtesvik_word_tesvik(Request $request)
+    {
+        $customer = Customer::where('id', $request->customer_id)->first();
+        $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
+        $product = Product::where('id', $request->product_id)->first();
+        $offer = Offer::where('id', $request->offer_id)->first();
+        $explanation = Explanation::where('id', $request->explanation_id)->first();
+
+        if ($customer) {
+
+            $offers = Offer::create([
+                'customer_id' => $request->customer_id,
+                'user_id' => $seller->user_id,
+                'target_seller_id' => $request->target_Seller_id,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
+                'offer_date' => $request->offer_date,
+                'product' => $request->product,
+                'offer_status' => '1',
+                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+                'accept_type' => $request->accept_type
+            ]);
+
+
+            if ($offers) {
+                $offer = OfferFile::create([
+                    'customer_id' => $request->customer_id,
+                    'offer_id' => $offers->id,
+                ]);
+                if ($offer) {
+                    $explanations = Explanation::create([
+                        'offer_id' => $offers->id,
+                        'date' => $request->offer_date,
+                        'explanation' => $request->explanation
+                    ]);
+                }
+            }
+
+            if ($explanations) {
+                return redirect(route('offer_index'))->with('success', 'İşlem Başarılı');
+            } else {
+                return back()->with('error', 'İşlem Başarısız');
+            }
+        }
+    }
+
+    public function mesem_word_data(Request $request)
+    {
+        $customer = Customer::where('id', $request->customer_id)->first();
+        $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
+        $product = Product::where('id', $request->product_id)->first();
+        $offer = Offer::where('id', $request->offer_id)->first();
+        $explanation = Explanation::where('id', $request->explanation_id)->first();
+
+
+        if ($customer) {
+            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            Settings::setOutputEscapingEnabled(true);
+            $random_new_tesvik = rand(0, 999999999);
+            $newtesvik = new TemplateProcessor('teklif_documents/mesem.docx');
+            $newtesvik->setValue('customer_name', $customer->name);
+            $newtesvik->setValue('customer_address', $customer->address);
+            $newtesvik->setValue('accept_type', isset($request->accept_type) ? $request->accept_type == 'Aylık' ? number_format($request->offer_money, 2, ',', '.') . ' ₺ ' . '/ ' . $request->accept_type : ' % ' . $request->offer_money : '');
+//            $newtesvik->setValue('deger_money',$request->offer_money);
+            $newtesvik->setValue('kdv', $request->kdv);
+            $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
+            //$newtesvik->setValue('offer_explanation', $request->offer_explanation);
+
+
+            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
+            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
+            session(['offer_file_path' => $path]);
+
+
+            $offers = Offer::create([
+                'customer_id' => $request->customer_id,
+                'user_id' => $seller->user_id,
+                'target_seller_id' => $request->target_Seller_id,
+                'offer_money' => $request->offer_money,
+                'offer_total' => $request->offer_money,
+                'offer_date' => $request->offer_date,
+                'product' => $request->product,
+                'offer_status' => '1',
+                'kdv' => ($request->kdv == 'KDV DAHİLDİR') ? '1' : '2',
+                'accept_type' => $request->accept_type
+            ]);
+
+
+            if ($offers) {
+                $offer = OfferFile::create([
+                    'customer_id' => $request->customer_id,
+                    'offer_id' => $offers->id,
+                    'offer_file' => $path
+                ]);
+
+                if ($offer) {
+                    $explanations = Explanation::create([
+                        'offer_id' => $offers->id,
+                        'date' => $request->offer_date,
+                        'explanation' => $request->explanation
+                    ]);
+                }
+            }
+
+            return response()->download($path);
         }
     }
 
