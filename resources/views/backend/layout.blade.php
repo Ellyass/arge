@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html>
 <head>
     <meta charset="utf-8">
@@ -44,11 +40,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/semantic.min.css"/>
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"/>
-
-
-    <!-- CKEditör -->
+    <!-- CKEditor -->
     <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -60,28 +54,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="/backend/custom/css/custom.css">
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -133,7 +108,10 @@ desired effect
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-right">
-                                    <td><a href="{{route('logout')}}"><button type="button" class="btn btn-danger fa fa-sign-out"><span >Çıkış</span></button></a></td>
+                                    <td><a href="{{route('logout')}}">
+                                            <button type="button" class="btn btn-danger fa fa-sign-out">
+                                                <span>Çıkış</span></button>
+                                        </a></td>
                                 </div>
                             </li>
                         </ul>
@@ -162,7 +140,7 @@ desired effect
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu" data-widget="tree">
-                <li class="header" style="text-align: center">MENÜLER</li>
+                <li class="header text-center">MENÜLER</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li><a href="{{route('admin.Index')}}"><i class="fa fa-home"></i> <span>Anasayfa</span></a></li>
                 <li class="treeview">
@@ -185,11 +163,11 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{route('offer_new_create')}}">- Teklif Ver</a></li>
-{{--                        <li><a href="{{route('offer_create')}}">Teklif Ver (Eski Sistem)</a></li>--}}
+                        {{--                        <li><a href="{{route('offer_create')}}">Teklif Ver (Eski Sistem)</a></li>--}}
                         <li><a href="{{route('offer_index')}}">- Teklif Tablom</a></li>
 
-{{--                        <li><a href="{{route('offer.report')}}"><i class="fa fa-users"> </i>Rapor Bilgisi</a></li>--}}
-{{--                        <li><a href="{{route('notification.index')}}"><i class="fa fa-users"> </i>Teklif Bildirim </a></li>--}}
+                        {{--                        <li><a href="{{route('offer.report')}}"><i class="fa fa-users"> </i>Rapor Bilgisi</a></li>--}}
+                        {{--                        <li><a href="{{route('notification.index')}}"><i class="fa fa-users"> </i>Teklif Bildirim </a></li>--}}
                     </ul>
                 </li>
 
@@ -212,17 +190,8 @@ desired effect
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-@yield ('content')
+        @yield('content')
         <!-- burası -->
-
-        <!-- Main content -->
-        <section class="content container-fluid">
-
-            <!--------------------------
-              | Your Page Content Here |
-              -------------------------->
-
-        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -240,10 +209,6 @@ desired effect
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
 
 <script>
     $('.fa-trash').click(function () {
