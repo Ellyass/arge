@@ -236,7 +236,7 @@
                 </div>
                 <!--egitim bitis-->
 
-                <div id="bordrolama">
+                <div id="Bordrolama">
                     <form action="{{route('offer_update')}}" method="POST" enctype="multipart/form-data">
                         @csrf
 
@@ -405,14 +405,13 @@
                 <!--danismanlik bitis-->
 
                 <div id="ikmetrik">
-
                     <form action="{{route('offer_update')}}" method="POST">
+
                         @csrf
+
+                        <input type="hidden" name="product" value="6">
                         <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
                         <input type="hidden" name="offer_id" value="{{$offer->id}}">
-                        <input type="hidden" name="product" value="6">
-                        <input type="hidden" name="new_tesvik_offer" value="new_tesvik">
-
 
                         <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
                             <label for="exampleInputPassword1">Dış Kaynak/Şatışcı</label>
@@ -421,12 +420,6 @@
                                     <option selected value="{{$seller->id}}">{{$seller->seller_name}}</option>
                                 @endforeach
                             </select>
-                        </div>
-
-
-                        <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                            <label for="exampleInputPassword1">İlgili Alıcı</label>
-                            <input type="text" name="alici" class="form-control">
                         </div>
 
                         <div class="form-group col-md-5 col-sm-3 col-xs-12">
@@ -439,13 +432,13 @@
                         </div>
 
                         <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                            <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
-                            <input type="date" name="offer_date" class="form-control" required>
+                            <label for="exampleInputPassword1">İlgili Alıcı</label>
+                            <input type="text" name="alici" class="form-control">
                         </div>
 
-                        <div id="month" class="form-group col-md-5 col-sm-3 col-xs-12">
+                        <div id="Month" class="form-group col-md-6 col-sm-3 col-xs-12">
                             <label for="exampleInputPassword1">Aylık</label>
-                            <select class="form-control" name="month">
+                            <select class="form-control" name="Month">
                                 <option selected value="">Seçiniz</option>
                                 <option value="50">0-20</option>
                                 <option value="5">21-300</option>
@@ -454,15 +447,15 @@
                                 <option value="1">5000+</option>
                             </select>
 
-                            <div style="margin-top: 10px; margin-right: 15px;" class="col-md-6 col-sm-3 col-xs-12">
+                            <div style="margin-top: 10px; margin-right: 15px;" class="col-md-5 col-sm-3 col-xs-12">
                                 <label for="">Belirlenen Ücreti Giriniz</label>
                                 <input class="form-control" type="number" name="month_free">
                             </div>
                         </div>
 
-                        <div id="year" class="form-group col-md-5 col-sm-3 col-xs-12">
+                        <div id="Year" class="form-group col-md-5 col-sm-3 col-xs-12">
                             <label for="exampleInputPassword1">Yıllık</label>
-                            <select class="form-control" name="year">
+                            <select class="form-control" name="Year">
                                 <option selected value="">Seçiniz</option>
                                 <option value="40">0-20</option>
                                 <option value="4">21-300</option>
@@ -471,24 +464,30 @@
                                 <option value="1">5000+</option>
                             </select>
 
-                            <div style="margin-top: 10px;" class="col-md-6 col-sm-3 form-group">
+                            <div style="margin-top: 10px;" class="col-md-5 col-sm-3 form-group">
                                 <label for="">Belirlenen Ücreti Giriniz</label>
                                 <input class="form-control" type="number" name="year_free">
                             </div>
                         </div>
 
-                        <input type="hidden" name="kdv" value="0">
-
-
                         <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
-                            <label for="exampleInputPassword1">Teklif Dosyası </label>
-                            <input type="file" name="offer_file" class="form-control">
+                            <label for="exampleInputPassword1">Teklif Tarihini Giriniz</label>
+                            <input type="date" name="offer_date" class="form-control" required>
                         </div>
+
+                        <input type="hidden" name="kdv" value="0">
 
                         <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
                             <label for="exampleInputPassword1">Açıklama Giriniz</label>
                             <input type="text" name="explanation" class="form-control">
                         </div>
+
+
+                        <textarea class="form-control" id="summary_ckeditor" name="summary_ckeditor"></textarea>
+                        <script>
+                            CKEDITOR.replace('editor1');
+                        </script>
+
 
                         <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
                             <button class="btn btn-success">Teklif Kaydet</button>
@@ -916,11 +915,14 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>CKEDITOR.replace('summary_ckeditor');</script>
 
     <script>
         $(document).ready(function () {
             if ({{$offer->product}} == 1) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").show(1000);
                 $("#ebordro").hide(1000);
@@ -935,7 +937,7 @@
             }
 
             if ({{$offer->product}} == 2) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").show(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -950,7 +952,7 @@
             }
 
             if ({{$offer->product}} == 3) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -961,11 +963,10 @@
                 $("#danismanlik").hide(1000);
                 $("#iys").hide(1000);
                 $("#dtesvik").hide(1000);
-
             }
 
             if ({{$offer->product}} == 4) {
-                $("#bodrolama").show(1000);
+                $("#Bordrolama").show(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -980,7 +981,7 @@
             }
 
             if ({{$offer->product}} == 5) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -995,7 +996,7 @@
             }
 
             if ({{$offer->product}} == 6) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -1010,7 +1011,7 @@
             }
 
             if ({{$offer->product}} == 7) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -1025,7 +1026,7 @@
             }
 
             if ({{$offer->product}} == 9) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -1040,7 +1041,7 @@
             }
 
             if ({{$offer->product}} == 10) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").show(1000);
@@ -1055,7 +1056,7 @@
             }
 
             if ({{$offer->product}} == 11) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -1070,7 +1071,7 @@
             }
 
             if ({{$offer->product}} == 12) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -1085,7 +1086,7 @@
             }
 
             if ({{$offer->product}} == 13) {
-                $("#bodrolama").hide(1000);
+                $("#Bordrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
                 $("#ebordro").hide(1000);
@@ -1233,17 +1234,16 @@
                 $("select option:selected").each(function () {
 
                     if ($(this).attr("value") == "Aylık") {
-                        $("#month").show();
-                        $("#year").hide();
+                        $("#Month").show();
+                        $("#Year").hide();
                     }
                     if ($(this).attr("value") == "Yıllık") {
-
-                        $("#month").hide();
-                        $("#year").show();
+                        $("#Month").hide();
+                        $("#Year").show();
                     }
                     if ($(this).attr("value") == "null") {
-                        $("#month").hide();
-                        $("#year").hide();
+                        $("#Month").hide();
+                        $("#Year").hide();
                     }
                 });
             }).change();

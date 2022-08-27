@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf8_turkish_ci">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ARGE</title>
     <!-- Tell the browser to be responsive to screen width -->

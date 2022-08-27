@@ -27,13 +27,9 @@ Route::prefix('admin')->group(function () {
 });
 
 
-
-
 Route::get('/email/destroy/{id}', 'Backend\CustomersEmailcontroller@destroy')->name('email_destroy');
 Route::post('email/update/post/{id}', 'Backend\CustomersEmailcontroller@update')->name('email_update');
 Route::get('/email/edit/{id}', 'Backend\CustomersEmailcontroller@edit')->name('email_edit');
-
-
 
 
 Route::prefix('offer')->group(function () {
@@ -45,21 +41,14 @@ Route::prefix('offer')->group(function () {
 });
 
 
-
-
-
-Route::prefix('offers')->group(function (){
-Route::get('', 'Backend\TeklifController@index')->name('offer_index');
-Route::get('/create', 'Backend\TeklifController@create')->name('offer_create');
-Route::get('/create1', 'Backend\TeklifController@newcreate')->name('offer_new_create');
-Route::post('/query', 'Backend\TeklifController@jquery')->name('offer_jquery');
-Route::get('/delete/{id}', 'Backend\TeklifController@delete')->name('offer_delete');
-Route::get('/file/{id}', 'Backend\TeklifController@file')->name('offer_file');
+Route::prefix('offers')->group(function () {
+    Route::get('', 'Backend\TeklifController@index')->name('offer_index');
+    Route::get('/create', 'Backend\TeklifController@create')->name('offer_create');
+    Route::get('/create1', 'Backend\TeklifController@newcreate')->name('offer_new_create');
+    Route::post('/query', 'Backend\TeklifController@jquery')->name('offer_jquery');
+    Route::get('/delete/{id}', 'Backend\TeklifController@delete')->name('offer_delete');
+    Route::get('/file/{id}', 'Backend\TeklifController@file')->name('offer_file');
 });
-
-
-
-
 
 
 Route::get('/create_tesvik/{id}', 'Backend\TeklifController@offersIndex')->name('tesvik_create');
@@ -75,8 +64,6 @@ Route::get('/create_ebordro{id}', 'Backend\TeklifController@offersIndex')->name(
 Route::get('/create_dtesvik{id}', 'Backend\TeklifController@offersIndex')->name('dtesvik_create');
 Route::get('/create_dkvkk{id}', 'Backend\TeklifController@offersIndex')->name('dkvkk_create');
 Route::post('/offers/delete/{id}', 'Backend\TeklifController@offer_detail_delete')->name('detail_offer_delete');
-
-
 
 
 Route::post('/word_tesvik', 'Backend\DocumentController@tesvik_word_data')->name('tesvik_post');

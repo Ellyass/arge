@@ -16,6 +16,7 @@ use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DateTime;
+use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
 use File;
@@ -434,7 +435,6 @@ class TeklifController extends Controller
 
         if ($request->product == 4) {
 
-
             File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
@@ -534,13 +534,35 @@ class TeklifController extends Controller
             $newtesvik = new TemplateProcessor('teklif_documents/ikmetrik.docx');
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-//            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
+            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
+
+
+            $summary_ckeditor = str_replace(["\r\n", "\n", "\r", "\t", "&nbsp;", "<caption>", "</caption>", "<p>", "</p>"], '', $request->summary_ckeditor);
+            preg_match("/<tbody>(.*)<\/tbody>/", $summary_ckeditor, $summary_ckeditor_tbody);
+            preg_match_all("/<tr>(.*?)<\/tr>/", $summary_ckeditor_tbody[1], $summary_ckeditor_tr);
+
+            $table = new Table([
+                'borderSize' => 6,
+                'borderColor' => 'black',
+                'cellMargin' => 80,
+                'valign' => 'center'
+            ]);
+            foreach ($summary_ckeditor_tr[1] as $tr) {
+                $table->addRow();
+                preg_match_all("/<td>(.*?)<\/td>/", $tr, $summary_ckeditor_td);
+                foreach ($summary_ckeditor_td[1] as $td) {
+
+                    $table->addCell(1750)->addText(strip_tags($td), ['bold' => strstr($td, "strong") ? true : false]);
+                }
+            }
+            $newtesvik->setComplexBlock('summary_ckeditor', $table);
 
             $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
             $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
             session(['offer_file_path' => $path]);
 
-            $updates = Offer::where('id', $request->offer_id)->update([
+
+            $updates = Offer::update([
                 'customer_id' => $request->customer_id,
                 'user_id' => $seller->user_id,
                 'target_seller_id' => $request->target_Seller_id,
@@ -559,7 +581,6 @@ class TeklifController extends Controller
                     'offer_id' => $request->offer_id,
                     'offer_file' => $path
                 ]);
-
                 if ($update) {
                     $explanations = Explanation::create([
                         'offer_id' => $request->offer_id,
@@ -569,7 +590,7 @@ class TeklifController extends Controller
                 }
             }
             if ($explanations) {
-                return redirect(route('offer_index'))->with('success', 'Güncelleme İşlemi Başarılı');
+                return response()->download($path);
             } else {
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
