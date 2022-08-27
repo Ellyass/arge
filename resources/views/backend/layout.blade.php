@@ -41,7 +41,7 @@
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.12.0/build/css/themes/bootstrap.min.css"/>
     <!-- CKEditor -->
-    <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 

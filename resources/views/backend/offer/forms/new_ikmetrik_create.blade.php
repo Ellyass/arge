@@ -92,14 +92,7 @@
 
         <textarea class="form-control" id="summary_ckeditor" name="summary_ckeditor"></textarea>
         <script>
-            ClassicEditor
-                .create( document.querySelector('#editor'))
-                .then( editor => {
-                    console.log( editor );
-                })
-                .catch( error => {
-                    console.error( error );
-                });
+                CKEDITOR.replace('editor1');
         </script>
 
 
@@ -113,6 +106,7 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>CKEDITOR.replace( 'summary_ckeditor' );</script>

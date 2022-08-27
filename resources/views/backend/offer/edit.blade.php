@@ -809,7 +809,7 @@
 
                         <div class="form-group form-group col-md-5 col-sm-3 col-xs-12 col">
                             <label for="exampleInputPassword1">Teklif Tarihini Girinizz</label>
-                            <input type="date" required name="offer_date" class="form-control" >
+                            <input type="date" required name="offer_date" class="form-control">
                         </div>
 
 
@@ -949,7 +949,7 @@
                 $("#dtesvik").hide(1000);
             }
 
-            if ({{$offer->product == 3}}) {
+            if ({{$offer->product}} == 3) {
                 $("#bodrolama").hide(1000);
                 $("#kvkk").hide(1000);
                 $("#tesvik").hide(1000);
@@ -1008,6 +1008,7 @@
                 $("#performans").hide(1000);
                 $("#dtesvik").hide(1000);
             }
+
             if ({{$offer->product}} == 7) {
                 $("#bodrolama").hide(1000);
                 $("#kvkk").hide(1000);
@@ -1022,6 +1023,7 @@
                 $("#performans").hide(1000);
                 $("#dtesvik").hide(1000);
             }
+
             if ({{$offer->product}} == 9) {
                 $("#bodrolama").hide(1000);
                 $("#kvkk").hide(1000);
@@ -1081,7 +1083,6 @@
                 $("#performans").hide(1000);
                 $("#dtesvik").show(1000);
             }
-
 
             if ({{$offer->product}} == 13) {
                 $("#bodrolama").hide(1000);

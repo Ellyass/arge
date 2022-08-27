@@ -8,10 +8,14 @@ use App\Models\Customer;
 
 class TestController extends Controller
 {
-    public function test()
+    public function test(Request $request)
     {
-        $richText = "<h1>fdsfds</h1>";
-        $export = view('export', compact('richText'));
-        Storage::put('teklif_saves/' . Customer::$customer->id, 0777, true, true, $export);
+        dd($request->toArray());
+        $customer = Customer::where('id')->first();
+
+        $summary_ckeditor = "summary_ckeditor";
+        $export = view('export', compact('summary_ckeditor'));
+        Storage::put('teklif_saves/'.$customer->id  , 0777, true, true, $export);
+        return response()->download($export);
     }
 }

@@ -97,7 +97,7 @@ Route::get('mailchimp', 'MailChimpController@index');
 Route::post('mailchimpDelete', 'MailChimpController@mailchimpDelete')->name('mailchimpDelete');
 
 
-Route::get('/test', 'TestController@test');
+Route::get('/test', 'TestController@test')->name('test');
 
 
 Route::get('pdf_index', 'Backend\DocumentController@pdf')->name('pdf_index');
