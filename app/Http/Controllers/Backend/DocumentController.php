@@ -12,8 +12,10 @@ use App\Models\TargetSeller;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\Style\TablePosition;
 use File;
 
 
@@ -330,7 +332,22 @@ class DocumentController extends Controller
             $newtesvik = new TemplateProcessor('teklif_documents/ikmetrik.docx');
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
+//            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
+
+
+            $summary_ckeditor = str_replace(["\r\n", "\n", "\r", "\t", "&nbsp;", "<caption>", "</caption>", "<p>", "</p>"], '', $request->summary_ckeditor);
+            preg_match("/<tbody>(.*)<\/tbody>/", $summary_ckeditor, $summary_ckeditor_tbody);
+            preg_match_all("/<tr>(.*?)<\/tr>/", $summary_ckeditor_tbody[1], $summary_ckeditor_tr);
+
+            $table = new Table(['width' => (6000 * 3)]);
+            foreach ($summary_ckeditor_tr[1] as $tr) {
+                $table->addRow();
+                preg_match_all("/<td>(.*?)<\/td>/", $tr, $summary_ckeditor_td);
+                foreach ($summary_ckeditor_td[1] as $td) {
+                    $table->addCell(1750)->addText($td);
+                }
+            }
+            $newtesvik->setComplexBlock('summary_ckeditor', $table);
 
             $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
             $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
