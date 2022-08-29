@@ -101,13 +101,13 @@
 
                             <td>{{$offer->offer_date->format('d.m.Y')}}</td>
 
-                            @if($offer->accept_type=='Aylık' or $offer->accep_type==null)
+                            @if($offer->accept_type=='Aylık')
                                 <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
-                            @elseif($offer->product==2)
+                            @elseif($offer->product == 2)
                                 <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
-                            @elseif($offer->product==4)
+                            @elseif($offer->product == 4)
                                 <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
-                            @elseif($offer->product==10)
+                            @elseif($offer->product == 10)
                                 <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
                             @else
                                 <td>{{'% '.number_format($offer->offer_total,2,',','.')}}</td>

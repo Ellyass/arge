@@ -33,7 +33,7 @@
                             <div class="form-group col-md-5 col-sm-3 col-xs-12 col">
                                 <label for="exampleInputPassword1">Sabit Ücret/Yüzdelik</label>
                                 <select class="form-control" name="accept_type">
-                                    <option selected value="bs">Seçiniz</option>
+                                    <option selected value="null">Seçiniz</option>
                                     <option value="Aylık">Aylık Ücret</option>
                                     <option value="Yüzdelik">Yüzdelik Değer</option>
                                 </select>
@@ -54,11 +54,11 @@
 
                             <div id="tesviksy" class="form-group col-md-5 col-sm-3 col-xs-12 col">
 
-                                <div id="ssabit" class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <div id="fixed" class="form-group col-md-5 col-sm-3 col-xs-12 col">
                                     <label for="exampleInputPassword1">Sabit Ücret : </label>
                                 </div>
 
-                                <div id="yyuzdelik" class="form-group col-md-5 col-sm-3 col-xs-12 col">
+                                <div id="percentile" class="form-group col-md-5 col-sm-3 col-xs-12 col">
                                     <label for="exampleInputPassword1">Yüzdelik Oranı : </label>
                                 </div>
 
@@ -84,6 +84,12 @@
 
                         </div>
                     </form>
+
+                    <div class="form-group col-md-10 col-sm3 col-xs-12 col" align="right">
+                        <a href="{{ route('document_wordtopdf')}}">
+                            <button class="btn btn-danger">Pdf Çevir</button>
+                        </a>
+                    </div>
                 </div>
                 <!-- teşvik bitiş-->
 
@@ -175,6 +181,11 @@
                             <button class="btn btn-success gonder">Teklifi Kaydet</button>
                         </div>
                     </form>
+                    <div class="form-group col-md-10 col-sm3 col-xs-12 col" align="right">
+                        <a href="{{ route('document_wordtopdf')}}">
+                            <button class="btn btn-danger">Pdf Çevir</button>
+                        </a>
+                    </div>
                 </div>
                 <!-- kvkk bitiş-->
 
@@ -493,6 +504,11 @@
                             <button class="btn btn-success">Teklif Kaydet</button>
                         </div>
                     </form>
+                    <div class="form-group col-md-10 col-sm3 col-xs-12 col" align="right">
+                        <a href="{{ route('document_wordtopdf')}}">
+                            <button class="btn btn-danger">Pdf Çevir</button>
+                        </a>
+                    </div>
                 </div>
                 <!--ikmetrik Bitiş-->
 
@@ -690,6 +706,12 @@
                             <button class="btn btn-success">Teklif Kaydet</button>
                         </div>
                     </form>
+
+                    <div class="form-group col-md-10 col-sm3 col-xs-12 col" align="right">
+                        <a href="{{ route('document_wordtopdf')}}">
+                            <button class="btn btn-danger">Pdf Çevir</button>
+                        </a>
+                    </div>
                 </div>
                 <!--ebordro Bitiş-->
 
@@ -1158,18 +1180,18 @@
             $("select").change(function () {
                 $("select option:selected").each(function () {
                     if ($(this).attr("value") == "Aylık") {
-                        $("#ssabit").show();
-                        $("#yyuzdelik").hide();
+                        $("#fixed").show();
+                        $("#percentile").hide();
                         $("#tesviksy").show();
                     }
                     if ($(this).attr("value") == "Yüzdelik") {
-                        $("#ssabit").hide();
-                        $("#yyuzdelik").show();
+                        $("#fixed").hide();
+                        $("#percentile").show();
                         $("#tesviksy").show();
                     }
-                    if ($(this).attr("value") == "bs") {
-                        $("#ssabit").hide();
-                        $("#yyuzdelik").hide();
+                    if ($(this).attr("value") == "null") {
+                        $("#fixed").hide();
+                        $("#percentile").hide();
                         $("#tesviksy").hide();
                     }
                 });

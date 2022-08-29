@@ -15,7 +15,9 @@
         "laravel/tinker": "^2.5",
         "nesbot/carbon": "^2.59",
         "phpoffice/phpword": "dev-master",
-        "spatie/laravel-newsletter": "^4.11"
+        "raeen/phpy": "^5.0",
+        "spatie/laravel-newsletter": "^4.11",
+        "symfony/process": "^5.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
