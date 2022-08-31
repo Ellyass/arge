@@ -103,11 +103,18 @@
 
                             @if($offer->accept_type=='Aylık')
                                 <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
-                            @elseif($offer->product == 2)
-                                <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
-                            @elseif($offer->product == 4)
-                                <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
-                            @elseif($offer->product == 10)
+                            @elseif(
+                        $offer->product == 2 or
+                        $offer->product == 3 or
+                        $offer->product == 4 or
+                        $offer->product == 5 or
+                        $offer->product == 6 or
+                        $offer->product == 7 or
+                        $offer->product == 8 or
+                        $offer->product == 9 or
+                        $offer->product == 10 or
+                        $offer->product == 11 or
+                        $offer->product == 12)
                                 <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
                             @else
                                 <td>{{'% '.number_format($offer->offer_total,2,',','.')}}</td>

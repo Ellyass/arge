@@ -74,6 +74,7 @@ class TeklifController extends Controller
         }
     }
 
+
     public function offersIndex($id)
     {
         $products = Product::all();
@@ -193,6 +194,7 @@ class TeklifController extends Controller
         $customers = Customer::orderBy('name', 'ASC')->get();
         return view('backend.offer.offer_create', compact('customers', 'sellers', 'products'));
     }
+
 
     public function newcreate()
     {

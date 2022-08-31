@@ -11,6 +11,7 @@
                         <th>Müşteri Durumu</th>
                         <th scope="col">Birim Fiyatı</th>
                         <th scope="col">Dış Kaynak/Satışçı</th>
+                        <th scope="col">Not</th>
                     </tr>
                     </thead>
 
@@ -62,6 +63,43 @@
                         </form></td>
                         <td>{{$offer->offer_money}}</td>
                         <td>{{$offer->seller->seller_name}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Not al
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="exampleModalLabel"><strong>Arama Notları</strong></h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <text>Buraya Eski notlar gelicek</text>
+                                        </div>
+                                        <br>
+
+                                        <div>
+                                            <text>Buraya Eski notlar gelicek</text>
+                                        </div>
+                                        <br>
+
+                                        <div class="modal-body">
+                                            <textarea name="not" id="not" cols="20" rows="1"></textarea>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                            <button type="button" class="btn btn-primary">Kaydet</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

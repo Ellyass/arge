@@ -84,11 +84,32 @@ Route::get('mailchimp', 'MailChimpController@index');
 Route::post('mailchimpDelete', 'MailChimpController@mailchimpDelete')->name('mailchimpDelete');
 
 
+
+
 Route::get('/test', 'TestController@test')->name('test');
+
+
 
 
 Route::get('pdf_index', 'Backend\DocumentController@pdf')->name('pdf_index');
 Route::get('/document/convert_word_to_pdf', 'Backend\DocumentController@convert')->name('document_wordtopdf');
+
+
+
+
+
+Route::get('cron_30_dk','Backend\CronController@cron_30_min')->name('cron_30_min');
+Route::get('cron_one_week','Backend\CronController@cron_one_week')->name('cron_one_week');
+Route::get('cron_two_week','Backend\CronController@cron_two_week')->name('cron_two_week');
+
+
+
+
+
+Route::get('notification','Backend\NotificationController@index')->name('notification.index');
+
+
+
 
 
 //Route::get('/create/tesvik','Backend\TeklifController@offersIndex')->name('load_tesvik');
