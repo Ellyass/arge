@@ -2,141 +2,162 @@
 @section('content')
     <section class="content-header">
         <div class="box box-primary"></div>
-            <div class="box-header with-border"></div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Firma</th>
-                        <th scope="col">Teklif Veren</th>
-                        <th>Müşteri Durumu</th>
-                        <th scope="col">Birim Fiyatı</th>
-                        <th scope="col">Dış Kaynak/Satışçı</th>
-                        <th scope="col">Not</th>
-                    </tr>
-                    </thead>
+        <div class="box-header with-border"></div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Firma</th>
+                <th scope="col">Teklif Veren</th>
+                <th>Müşteri Durumu</th>
+                <th scope="col">Birim Fiyatı</th>
+                <th scope="col">Dış Kaynak/Satışçı</th>
+                <th scope="col">Not</th>
+            </tr>
+            </thead>
 
-                    <tbody>
-                    <tr>
-                        <td>{{$offer->customer->name}}</td>
-                        <td>{{$offer->user->name}}</td>
-                        @if($offer->offer_status==2)
-                            <td>Kabul Edildi</td>
-                        @elseif($offer->offer_status==1)
-                            <td>Bekliyor</td>
-                        @else
-                            <td>Reddedildi</td>
-                        @endif
+            <tbody>
+            <tr>
+                <td>{{$offer->customer->name}}</td>
+                <td>{{$offer->user->name}}</td>
+                @if($offer->offer_status==2)
+                    <td>Kabul Edildi</td>
+                @elseif($offer->offer_status==1)
+                    <td>Bekliyor</td>
+                @else
+                    <td>Reddedildi</td>
+                @endif
 
 
-                        <?php
-                        if ($interval->days<1)
-                        {
-                        if ($offer->cron_1_day==1){ ?>
-                        <input id="cron_1_day" checked disabled  type="checkbox" onclick="formgonder(this,'cron_1_day')"  name="" value="1">
-                        <label >ilk arama</label><br>
-                        <?php  }  else  {  ?>
-                        <input id="cron_1_day"  type="checkbox" onclick="formgonder(this,'cron_1_day')"  name="" value="1">
-                        <label >ilk arama</label><br>
-                        <?php }
-                        } ?>
-                        <?php
-                        if ($interval->days >=1 && $interval->days<=7)
-                        {
-                        if ($offer->cron_1_week==1){ ?>
-                        <input id="cron_1_week" checked disabled type="checkbox" onclick="formgonder(this,'cron_1_week')" name="" value="1">
-                        <label >2 arama</label><br>
-                        <?php } else {?>
-                        <input id="cron_1_week" type="checkbox" onclick="formgonder(this,'cron_1_week')" name="" value="1">
-                        <label >2 arama</label><br>
-                        <?php }
-                        } ?>
-                        <?php
-                        if ($interval->days >=7 && $interval->days<=14){
-                        if ($offer->cron_2_week==1){ ?>
-                        <input type="checkbox" checked disabled  name="cron_2_week" onclick="formgonder(this,'cron_2_week')" value="1">
-                        <label >3 arama</label>
-                        <?php } else {?>
+{{--                <?php--}}
+{{--                if ($interval->days < 1)--}}
+{{--                {--}}
+{{--                if ($offer->cron_1_day == 1){ ?>--}}
+{{--                <input id="cron_30_min" checked disabled type="checkbox" onclick="formgonder(this,'cron_30_min')" name=""--}}
+{{--                       value="1">--}}
+{{--                <label>ilk arama</label><br>--}}
+{{--                <?php  }  else  {  ?>--}}
+{{--                <input id="cron_30_min" type="checkbox" onclick="formgonder(this,'cron_30_min')" name="" value="1">--}}
+{{--                <label>ilk arama</label><br>--}}
+{{--                <?php }--}}
+{{--                } ?>--}}
+{{--                <?php--}}
+{{--                if ($interval->days >= 1 && $interval->days <= 7)--}}
+{{--                {--}}
+{{--                if ($offer->cron_1_week == 1){ ?>--}}
+{{--                <input id="cron_1_week" checked disabled type="checkbox" onclick="formgonder(this,'cron_1_week')"--}}
+{{--                       name="" value="1">--}}
+{{--                <label>2 arama</label><br>--}}
+{{--                <?php } else {?>--}}
+{{--                <input id="cron_1_week" type="checkbox" onclick="formgonder(this,'cron_1_week')" name="" value="1">--}}
+{{--                <label>2 arama</label><br>--}}
+{{--                <?php }--}}
+{{--                } ?>--}}
+{{--                <?php--}}
+{{--                if ($interval->days >= 7 && $interval->days <= 14){--}}
+{{--                if ($offer->cron_2_week == 1){ ?>--}}
+{{--                <input type="checkbox" checked disabled name="cron_2_week" onclick="formgonder(this,'cron_2_week')"--}}
+{{--                       value="1">--}}
+{{--                <label>3 arama</label>--}}
+{{--                <?php } else {?>--}}
 
-                        <input type="checkbox"  name="cron_2_week" onclick="formgonder(this,'cron_2_week')" value="1">
-                        <label >3 arama</label>
-                        <?php }}?>
-                        </form></td>
-                        <td>{{$offer->offer_money}}</td>
-                        <td>{{$offer->seller->seller_name}}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Not al
-                            </button>
+{{--                <input type="checkbox" name="cron_2_week" onclick="formgonder(this,'cron_2_week')" value="1">--}}
+{{--                <label>3 arama</label>--}}
+{{--                <?php }}?>--}}
+                </form></td>
+                <td>{{$offer->offer_money}}</td>
+                <td>{{$offer->seller->seller_name}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Not al
+                    </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="exampleModalLabel"><strong>Arama Notları</strong></h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div>
-                                            <text>Buraya Eski notlar gelicek</text>
-                                        </div>
-                                        <br>
+                    <!-- Modal -->
+                    <form action="{{route('not_post')}}" method="POST">
+                            @csrf
 
-                                        <div>
-                                            <text>Buraya Eski notlar gelicek</text>
-                                        </div>
-                                        <br>
+                        <input type="hidden" name="customer_id" value="{{$offer->customer_id}}">
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
 
-                                        <div class="modal-body">
-                                            <textarea name="not" id="not" cols="20" rows="1"></textarea>
-                                        </div>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel"><strong>Arama Notları</strong>
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    @if(isset($call))
+                                        @php
+                                        $arama=1;
+                                        @endphp
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                                            <button type="button" class="btn btn-primary">Kaydet</button>
-                                        </div>
+                                    <div>
+                                        @foreach($call as $cal)
+                                            <input class="form-control" type="text" value="<?php echo  $arama++. '.Arama: '  ?>{{$cal->call_explanation}}">
+                                             <br>
+                                        @endforeach
+                                    </div>
+                                    @endif
+                                    <br>
+
+                                    <div class="modal-body">
+                                        <textarea name="call_explanation" id="call_explanation" cols="70" rows="1"></textarea>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-    <table class="table">
-        <thead>
-        <th>#</th>
-        <th>Teklif Tarihi</th>
-        <th>word</th>
-        <th>PDF</th>
-        <th>Sil</th>
-        </thead>
-        <tbody>
-        <?php $sayi = 1;?>
-        @foreach($offer->files as $file )
-            <tr>
-                <td><?php echo $sayi ++ ; ?></td>
-                <td><?php echo date('d.m.Y',strtotime($offer->offer_date)) ?></td>
-                <td><a href="{{ url($file->offer_file) }}"><img src="https://img.icons8.com/officel/40/000000/word.png"/></a>
-                <td><a href="#"><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a></td>
-
-                <form id="offerDelete{{$file->id}}" action="{{route('detail_offer_delete',['id'=>$file->id])}}" method="POST">
-                    @csrf
-                    <td><button data-id="{{$file->id}}" class="btn btn-danger">Sil</button></td>
-                </form>
+                        </div>
+                    </form>
+                </td>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+            <th>#</th>
+            <th>Teklif Tarihi</th>
+            <th>word</th>
+            <th>PDF</th>
+            <th>Sil</th>
+            </thead>
+            <tbody>
+            <?php $sayi = 1;?>
+            @foreach($offer->files as $file )
+                <tr>
+                    <td><?php echo $sayi++; ?></td>
+                    <td><?php echo date('d.m.Y', strtotime($offer->offer_date)) ?></td>
+                    <td><a href="{{ url($file->offer_file) }}"><img
+                                src="https://img.icons8.com/officel/40/000000/word.png"/></a>
+                    <td><a href="#"><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a></td>
+
+                    <form id="offerDelete{{$file->id}}" action="{{route('detail_offer_delete',['id'=>$file->id])}}"
+                          method="POST">
+                        @csrf
+                        <td>
+                            <button data-id="{{$file->id}}" class="btn btn-danger">Sil</button>
+                        </td>
+                    </form>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </section>
 
 @endsection
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-    function formgonder(check_value,column) {
+    function formgonder(check_value, column) {
         var value = $(check_value).attr('value');
-        var id = <?php  echo $id =  $offer->id ?>;
+        var id = <?php  echo $id = $offer->id ?>;
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -146,13 +167,12 @@
         $.ajax({
 
 
-
             url: '/offer/ajax/cron',
             type: "POST",
-            data: {value:value,column:column,id:id},
+            data: {value: value, column: column, id: id},
             success: function (gelen_cevap) {
                 alert(gelen_cevap);
-                $(check_value).prop('disabled',true);
+                $(check_value).prop('disabled', true);
             },
             error: function () {
                 alert("hata");
@@ -161,18 +181,18 @@
     }
 </script>
 
-<script  src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script  src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <link r href="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js">
-<script  src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-<link  href="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js">
-<script  src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
-<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script  src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-<script  src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-<script  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script  src="https://cdn.datatables.net/searchpanes/1.1.1/js/dataTables.searchPanes.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<link href="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js">
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/searchpanes/1.1.1/js/dataTables.searchPanes.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\CallExplanation;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
@@ -20,6 +21,7 @@ use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
 use File;
+use Prophecy\Call\Call;
 
 
 class TeklifController extends Controller
@@ -241,7 +243,6 @@ class TeklifController extends Controller
         $sellers = TargetSeller::where('target_status', '1')->get();
         return view('backend.offer.edit', compact('offer', 'sellers'));
     }
-
 
 
 //    public function contract_upload($id)
@@ -874,11 +875,36 @@ class TeklifController extends Controller
         $tarih1 = new DateTime($offer->created_at);
         $tarih2 = Carbon::now();
         $interval = $tarih1->diff($tarih2);
-
+        $call = CallExplanation::where('offer_id',$offer->id)->get();
         $customer = Customer::where('id', $offer->customer_id);
-        return view('backend.offer.detail', compact('offer', 'customer', 'interval'));
+        return view('backend.offer.detail', compact('offer', 'customer', 'interval','call'));
     }
 
+
+    public function callExplanation(Request $request){
+        $call = CallExplanation::where('offer_id',$request->offer_id)->get();
+        $offer = Offer::where('id',$request->offer_id)->first();
+        $customer = Customer::where('id',$request->customer_id)->first();
+
+
+        $calls = CallExplanation::create([
+            'customer_id' => $request->customer_id,
+            'offer_id' => $request->offer_id,
+            'call_explanation' => isset($request->call_explanation) ? $request->call_explanation : ' '
+        ]);
+        $id=$request->offer_id;
+
+        return redirect(route('nots',['id' => $id]));
+    }
+
+    public function callss($id)
+    {
+        $call = CallExplanation::where('offer_id',$id)->orderBy('id','ASC')->get();
+        $offer = Offer::where('id',$id)->first();
+        $customer = Customer::where('id',$offer->customer_id)->first();
+
+        return view('backend.offer.detail', compact('call','offer','customer'))->with('success', 'İşlem Başarılı');
+    }
 
 }
 

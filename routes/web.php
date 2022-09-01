@@ -13,6 +13,9 @@ Route::get('/destroy/{id}', 'Backend\CustomersController@destroy')->name('custom
 Route::get('/edit/{id}', 'Backend\CustomersController@edit')->name('customer_edit');
 
 
+
+
+
 Route::prefix('admin')->group(function () {
     Route::get('/', 'Backend\DefaultController@index')->name('admin.Index');
     Route::post('/login', 'Backend\DefaultController@authenticate')->name('admin_Authenticate');
@@ -27,9 +30,15 @@ Route::prefix('admin')->group(function () {
 });
 
 
+
+
+
 Route::get('/email/destroy/{id}', 'Backend\CustomersEmailcontroller@destroy')->name('email_destroy');
 Route::post('email/update/post/{id}', 'Backend\CustomersEmailcontroller@update')->name('email_update');
 Route::get('/email/edit/{id}', 'Backend\CustomersEmailcontroller@edit')->name('email_edit');
+
+
+
 
 
 Route::prefix('offer')->group(function () {
@@ -41,6 +50,9 @@ Route::prefix('offer')->group(function () {
 });
 
 
+
+
+
 Route::prefix('offers')->group(function () {
     Route::get('', 'Backend\TeklifController@index')->name('offer_index');
     Route::get('/create', 'Backend\TeklifController@create')->name('offer_create');
@@ -49,6 +61,9 @@ Route::prefix('offers')->group(function () {
     Route::get('/delete/{id}', 'Backend\TeklifController@delete')->name('offer_delete');
     Route::get('/file/{id}', 'Backend\TeklifController@file')->name('offer_file');
 });
+
+
+
 
 
 Route::get('/create_tesvik/{id}', 'Backend\TeklifController@offersIndex')->name('tesvik_create');
@@ -66,6 +81,16 @@ Route::get('/create_dkvkk{id}', 'Backend\TeklifController@offersIndex')->name('d
 Route::post('/offers/delete/{id}', 'Backend\TeklifController@offer_detail_delete')->name('detail_offer_delete');
 
 
+
+
+
+Route::post('/not_post','Backend\TeklifController@callExplanation')->name('not_post');
+Route::get('/nots/{id}','Backend\TeklifController@callss')->name('nots');
+
+
+
+
+
 Route::post('/word_tesvik', 'Backend\DocumentController@tesvik_word_data')->name('tesvik_post');
 Route::post('/word_kvkk', 'Backend\DocumentController@kvkk_word_data')->name('kvkk_post');
 Route::post('/word_bordroloma', 'Backend\DocumentController@bordrolama_word_data')->name('bordrolama_post');
@@ -80,13 +105,13 @@ Route::post('/word_dtesvik', 'Backend\DocumentController@dtesvik_word_tesvik')->
 Route::post('/word_dkvkk', 'Backend\DocumentController@dkvkk_word_data')->name('dkvkk_post');
 
 
+
+
+
 Route::get('mailchimp', 'MailChimpController@index');
 Route::post('mailchimpDelete', 'MailChimpController@mailchimpDelete')->name('mailchimpDelete');
 
 
-
-
-Route::get('/test', 'TestController@test')->name('test');
 
 
 
@@ -98,7 +123,7 @@ Route::get('/document/convert_word_to_pdf', 'Backend\DocumentController@convert'
 
 
 
-Route::get('cron_30_dk','Backend\CronController@cron_30_min')->name('cron_30_min');
+Route::get('cron_30_min','Backend\CronController@cron_30_min')->name('cron_30_min');
 Route::get('cron_one_week','Backend\CronController@cron_one_week')->name('cron_one_week');
 Route::get('cron_two_week','Backend\CronController@cron_two_week')->name('cron_two_week');
 
@@ -106,11 +131,7 @@ Route::get('cron_two_week','Backend\CronController@cron_two_week')->name('cron_t
 
 
 
-Route::get('notification','Backend\NotificationController@index')->name('notification.index');
-
-
-
-
-
+//Route::get('notification','Backend\NotificationController@index')->name('notification.index');
 //Route::get('/create/tesvik','Backend\TeklifController@offersIndex')->name('load_tesvik');
 //Route::get('contract/upload/{id}','Backend\TeklifController@contract_upload')->name('contract_upload');
+//Route::get('/test', 'TestController@test')->name('test');
