@@ -268,7 +268,7 @@
 
                             <div class="col-md-5 col-sm-3 col-xs-12">
                                 <label for="exampleInputPassword1">Bordro Ücreti</label>
-                                <select class="form-control col-md-5 col-sm-3 col-xs-12 " name="bordro_type">
+                                <select class="form-control col-md-5 col-sm-3 col-xs-12 newBordroUcret " name="bordro_type">
                                     <option selected value="seç">Seçiniz</option>
                                     <option value="bordro_ucret">Bodro Başı</option>
                                     <option value="net_ucret">Net Ücret</option>
@@ -447,7 +447,7 @@
                             <input type="text" name="alici" class="form-control">
                         </div>
 
-                        <div id="Month" class="form-group col-md-6 col-sm-3 col-xs-12">
+                        <div id="month" class="form-group col-md-6 col-sm-3 col-xs-12">
                             <label for="exampleInputPassword1">Aylık</label>
                             <select class="form-control" name="Month">
                                 <option selected value="">Seçiniz</option>
@@ -464,7 +464,7 @@
                             </div>
                         </div>
 
-                        <div id="Year" class="form-group col-md-5 col-sm-3 col-xs-12">
+                        <div id="year" class="form-group col-md-5 col-sm-3 col-xs-12">
                             <label for="exampleInputPassword1">Yıllık</label>
                             <select class="form-control" name="Year">
                                 <option selected value="">Seçiniz</option>
@@ -1256,16 +1256,16 @@
                 $("select option:selected").each(function () {
 
                     if ($(this).attr("value") == "Aylık") {
-                        $("#Month").show();
-                        $("#Year").hide();
+                        $("#month").show();
+                        $("#year").hide();
                     }
                     if ($(this).attr("value") == "Yıllık") {
-                        $("#Month").hide();
-                        $("#Year").show();
+                        $("#month").hide();
+                        $("#year").show();
                     }
                     if ($(this).attr("value") == "null") {
-                        $("#Month").hide();
-                        $("#Year").hide();
+                        $("#month").hide();
+                        $("#year").hide();
                     }
                 });
             }).change();
@@ -1298,8 +1298,94 @@
     </script>
     <!--performans-->
 
+{{--    <script>--}}
+{{--        $('.newBordroUcret').on('change', function() {--}}
+{{--                   if ($(".newBordroUcret").val() == "bordro_ucret") {--}}
+{{--                            $("#basi_ucret").show();--}}
+{{--                            $("#net_ucrett").hide();--}}
+{{--                            $("#bordro_type").show();--}}
+{{--                        }--}}
+
+{{--                        if ($(".newBordroUcret").val() == "net_ucret") {--}}
+
+{{--                            $("#basi_ucret").hide();--}}
+{{--                            $("#net_ucrett").show();--}}
+{{--                            $("#bordro_type").show();--}}
+{{--                        }--}}
+{{--                        if ($(".newBordroUcret").val() == "seç") {--}}
+
+{{--                            $("#basi_ucret").hide();--}}
+{{--                            $("#net_ucrett").hide();--}}
+{{--                            $("#bordro_type").hide();--}}
+{{--                        }--}}
+{{--                        if ($(".newBordroUcret").val() == "net_tesvik") {--}}
+{{--                            $("#yuzdelik_tesvik").hide();--}}
+{{--                            $("#net_tesvik").show();--}}
+{{--                            $("#type").show();--}}
+{{--                        }--}}
+{{--                        if ($(".newBordroUcret").val() == "yuzdelik_tesvik") {--}}
+{{--                            $("#yuzdelik_tesvik").show();--}}
+{{--                            $("#net_tesvik").hide();--}}
+{{--                            $("#type").show();--}}
+{{--                        }--}}
+{{--                        if ($(".newBordroUcret").val() == "Ücretsiz") {--}}
+{{--                            $("#tesvik_yuzdelik").hide();--}}
+{{--                            $("#net_tesvik").hide();--}}
+{{--                            $("#type").hide();--}}
+{{--                        }--}}
+{{--                        if ($(".newBordroUcret").val() == "null") {--}}
+{{--                            $("#yuzdelik_tesvik").hide();--}}
+{{--                            $("#net_tesvik").hide();--}}
+{{--                            $("#type").hide();--}}
+{{--                        }--}}
+{{--        });--}}
+{{--        // $(".newBordroUcret").change(function () {--}}
+{{--        //     $("select option:selected").each(function () {--}}
+{{--        //         console.log($(this).attr("value"));--}}
+{{--        //         if ($(this).attr("value") == "bordro_ucret") {--}}
+{{--        //             $("#basi_ucret").show();--}}
+{{--        //             $("#net_ucrett").hide();--}}
+{{--        //             $("#bordro_type").show();--}}
+{{--        //         }--}}
+{{--        //--}}
+{{--        //         if ($(this).attr("value") == "net_ucret") {--}}
+{{--        //--}}
+{{--        //             $("#basi_ucret").hide();--}}
+{{--        //             $("#net_ucrett").show();--}}
+{{--        //             $("#bordro_type").show();--}}
+{{--        //         }--}}
+{{--        //         if ($(this).attr("value") == "seç") {--}}
+{{--        //--}}
+{{--        //             $("#basi_ucret").hide();--}}
+{{--        //             $("#net_ucrett").hide();--}}
+{{--        //             $("#bordro_type").hide();--}}
+{{--        //         }--}}
+{{--        //         if ($(this).attr("value") == "net_tesvik") {--}}
+{{--        //             $("#yuzdelik_tesvik").hide();--}}
+{{--        //             $("#net_tesvik").show();--}}
+{{--        //             $("#type").show();--}}
+{{--        //         }--}}
+{{--        //         if ($(this).attr("value") == "yuzdelik_tesvik") {--}}
+{{--        //             $("#yuzdelik_tesvik").show();--}}
+{{--        //             $("#net_tesvik").hide();--}}
+{{--        //             $("#type").show();--}}
+{{--        //         }--}}
+{{--        //         if ($(this).attr("value") == "Ücretsiz") {--}}
+{{--        //             $("#tesvik_yuzdelik").hide();--}}
+{{--        //             $("#net_tesvik").hide();--}}
+{{--        //             $("#type").hide();--}}
+{{--        //         }--}}
+{{--        //         if ($(this).attr("value") == "null") {--}}
+{{--        //             $("#yuzdelik_tesvik").hide();--}}
+{{--        //             $("#net_tesvik").hide();--}}
+{{--        //             $("#type").hide();--}}
+{{--        //         }--}}
+{{--        //     })--}}
+{{--        // });--}}
+
+{{--    </script>--}}
+
+
 @endsection
 @section('css')@endsection
 @section('js')@endsection
-
-

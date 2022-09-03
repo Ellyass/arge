@@ -230,18 +230,26 @@ class TeklifController extends Controller
             $offer_data->where('offer_status', $status)->sum('offer_total');
         }
 
-        $jquerys = $offer_data->get();
+        $jquerys =$offer_data->get();
         $products = Product::all();
 
         return view('backend.offer.jquery', compact('jquerys', 'products'));
     }
 
 
-    public function edit($id)
+    public function edit($id,$case)
     {
         $offer = Offer::find($id);
+        $customers = Customer::where('id',$offer->customer_id)->first();
         $sellers = TargetSeller::where('target_status', '1')->get();
-        return view('backend.offer.edit', compact('offer', 'sellers'));
+
+        switch ($case) {
+            case 1 :
+                {
+                    return view('backend.offer.edit.tesvik_edit', compact('sellers', 'offer','customers'));
+                }
+
+        }
     }
 
 
@@ -872,12 +880,9 @@ class TeklifController extends Controller
     public function file($id)
     {
         $offer = Offer::find($id);
-        $tarih1 = new DateTime($offer->created_at);
-        $tarih2 = Carbon::now();
-        $interval = $tarih1->diff($tarih2);
         $call = CallExplanation::where('offer_id',$offer->id)->get();
         $customer = Customer::where('id', $offer->customer_id);
-        return view('backend.offer.detail', compact('offer', 'customer', 'interval','call'));
+        return view('backend.offer.detail', compact('offer', 'customer','call'));
     }
 
 

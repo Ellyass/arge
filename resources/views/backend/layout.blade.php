@@ -57,6 +57,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -190,8 +191,8 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        @yield('content')
         <!-- burası -->
+        @yield('content')
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -199,7 +200,7 @@
     <footer class="main-footer">
         <!-- To the right -->
         <!-- Default to the left -->
-        <strong>MorePayroll &copy; 2020 <a href="#">Company</a>.</strong> Telif Hakkı Saklıdır.
+        <strong>MorePayroll &copy; 2022 <a href="https://www.morepayroll.com/">Company</a>.</strong> Telif Hakkı Saklıdır.
     </footer>
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed

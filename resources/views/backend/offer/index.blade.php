@@ -153,10 +153,9 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{route('offer_edit',['id'=>$offer->id])}}">
+                                <a href="{{route('offer_edit',['id'=>$offer->id,'case'=>$offer->product])}}">
                                     <button class="btn btn-success btn-sm">Güncelle</button>
                                 </a>
-                                {{--                           <a href="{{route('contract_upload',['id'=>$offer->id])}}"><button class="btn btn-primary btn-xs">Sözleşme Yükle</button></a>--}}
                                 <a href="{{route('offer_delete',['id'=>$offer->id])}}">
                                     <Button class="btn btn-danger btn-sm "><span class="fa fa-trash"></span></Button>
                                 </a>

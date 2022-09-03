@@ -44,7 +44,7 @@ Route::get('/email/edit/{id}', 'Backend\CustomersEmailcontroller@edit')->name('e
 Route::prefix('offer')->group(function () {
     Route::get('/status/{id}', 'Backend\TeklifController@status')->name('offer_status');
     Route::post('/import', 'Backend\TeklifController@import')->name('offer_import');
-    Route::get('/edit/{id}', 'Backend\TeklifController@edit')->name('offer_edit');
+    Route::get('/edit/{id}/{case}', 'Backend\TeklifController@edit')->name('offer_edit');
     Route::post('/update', 'Backend\TeklifController@update')->name('offer_update');
     Route::post('/status/up/{id}', 'Backend\TeklifController@up')->name('status_up');
 });

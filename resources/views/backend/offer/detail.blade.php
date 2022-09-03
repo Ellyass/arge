@@ -27,42 +27,6 @@
                     <td>Reddedildi</td>
                 @endif
 
-
-{{--                <?php--}}
-{{--                if ($interval->days < 1)--}}
-{{--                {--}}
-{{--                if ($offer->cron_1_day == 1){ ?>--}}
-{{--                <input id="cron_30_min" checked disabled type="checkbox" onclick="formgonder(this,'cron_30_min')" name=""--}}
-{{--                       value="1">--}}
-{{--                <label>ilk arama</label><br>--}}
-{{--                <?php  }  else  {  ?>--}}
-{{--                <input id="cron_30_min" type="checkbox" onclick="formgonder(this,'cron_30_min')" name="" value="1">--}}
-{{--                <label>ilk arama</label><br>--}}
-{{--                <?php }--}}
-{{--                } ?>--}}
-{{--                <?php--}}
-{{--                if ($interval->days >= 1 && $interval->days <= 7)--}}
-{{--                {--}}
-{{--                if ($offer->cron_1_week == 1){ ?>--}}
-{{--                <input id="cron_1_week" checked disabled type="checkbox" onclick="formgonder(this,'cron_1_week')"--}}
-{{--                       name="" value="1">--}}
-{{--                <label>2 arama</label><br>--}}
-{{--                <?php } else {?>--}}
-{{--                <input id="cron_1_week" type="checkbox" onclick="formgonder(this,'cron_1_week')" name="" value="1">--}}
-{{--                <label>2 arama</label><br>--}}
-{{--                <?php }--}}
-{{--                } ?>--}}
-{{--                <?php--}}
-{{--                if ($interval->days >= 7 && $interval->days <= 14){--}}
-{{--                if ($offer->cron_2_week == 1){ ?>--}}
-{{--                <input type="checkbox" checked disabled name="cron_2_week" onclick="formgonder(this,'cron_2_week')"--}}
-{{--                       value="1">--}}
-{{--                <label>3 arama</label>--}}
-{{--                <?php } else {?>--}}
-
-{{--                <input type="checkbox" name="cron_2_week" onclick="formgonder(this,'cron_2_week')" value="1">--}}
-{{--                <label>3 arama</label>--}}
-{{--                <?php }}?>--}}
                 </form></td>
                 <td>{{$offer->offer_money}}</td>
                 <td>{{$offer->seller->seller_name}}</td>
@@ -195,7 +159,6 @@
 <script src="https://cdn.datatables.net/searchpanes/1.1.1/js/dataTables.searchPanes.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

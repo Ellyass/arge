@@ -1,11 +1,12 @@
-
 @extends('backend.layout')
 @section('content')
     <section class="content-header">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <form action="{{route('offer_jquery')}}" method="POST">
+
                     @csrf
+
                     <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
                         <select class="form-control" name="mounth">
                             <option value="">Seçiniz</option>
@@ -23,6 +24,7 @@
                             <option value="12">Aralık Ayı</option>
                         </select>
                     </div>
+
                     <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
                         <select class="form-control" name="year">
                             <option value="">Seçiniz</option>
@@ -33,6 +35,7 @@
                             <option value="2022">2023</option>
                         </select>
                     </div>
+
                     <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
                         <select class="form-control" name="product">
                             <option value="">Seciniz</option>
@@ -41,6 +44,7 @@
                             @endforeach
                         </select>
                     </div>
+
                     <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
                         <select class="form-control" name="status">
                             <option value="">Seçiniz</option>
@@ -50,11 +54,13 @@
 
                         </select>
                     </div>
+
                     <div class="form-group col-md-1 col-sm-3 col-xs-12 col" >
                         <button class="btn btn-success">Sorgula</button>
                     </div>
                 </form>
             </div>
+
             <table class="table" id="paginationNumbers">
                 <thead>
                 <tr>
@@ -74,7 +80,7 @@
                 @php $say=1; @endphp
                 <tbody>
 
-                     @foreach($jquerys as $jquery)
+                     @foreach($jquerys as $jquery) {
 
                     <tr>
                         <th scope="row">@php echo $say++ @endphp</th>
@@ -84,20 +90,33 @@
 
                         <td>{{ $jquery->offer_date->format('d.m.Y')}}</td>
                         <td>{{ $jquery->user->name }}</td>
-                        @if($jquery->product==1 && $jquery->accept_type=='Aylık')
-                            <td>{{number_format($jquery->offer_money,2,',','.')}}</td>
-                        @elseif($jquery->product==1)
-                            <td>%{{$jquery->offer_money}}</td>
-                        @elseif($jquery->product==6)
-                            <td>{{$jquery->offer_total}}</td>
+                        @if($jquery->accept_type=="Aylık")
+                            <td>{{number_format($jquery->offer_money,2,',','.').' ₺'}}</td>
+                        @elseif(
+                    $jquery->product == 2 or
+                    $jquery->product == 3 or
+                    $jquery->product == 4 or
+                    $jquery->product == 5 or
+                    $jquery->product == 6 or
+                    $jquery->product == 7 or
+                    $jquery->product == 8 or
+                    $jquery->product == 9 or
+                    $jquery->product == 10 or
+                    $jquery->product == 11 or
+                    $jquery->product == 12)
+                            <td>{{number_format($jquery->offer_money,2,',','.').' ₺'}}</td>
                         @else
-                            <td>{{number_format($jquery->offer_total,0,',','.').' '}}TL</td>
+                            <td>{{'% '.number_format($jquery->offer_total,2,',','.')}}</td>
                         @endif
 
                         <td>{{$jquery->tproduct->name}}</td>
 
-                        <td > <textarea>@foreach($jquery->explanations as $explanation)
-                                    {{$explanation->date->format('d.m.Y').' '.$explanation->explanation}} @endforeach </textarea>
+                        <td>
+                           <textarea>
+                               @foreach($jquery->explanations as $explanation)
+                                   {{date('d.m.Y',strtotime($explanation->date)).'/'.$explanation->explanation}}
+                               @endforeach
+                           </textarea>
                         </td>
 
                         <td>
@@ -116,10 +135,9 @@
 
                         </td>
 
-                        <td><a href="{{route('offer_edit',['id'=>$jquery->id])}}"><button class="btn btn-primary btn-xs">Güncelle</button></a>
-                            <a href="{{route('offer_delete',['id'=>$jquery->id])}}"><Button class="btn btn-danger">Sil</Button></a>
-{{--                            <a href="{{route('offer_file',['id' => $jquery->id])}}"><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a>--}}
-                            <a href="{{route('offer_file',['id' => $jquery->id])}}"><img class="fa fa-file-pdf-o"/></a>
+                        <td><a href="{{route('offer_edit',['id'=>$jquery->id])}}"><button class="btn btn-primary btn-sm">Güncelle</button></a>
+                            <a href="{{route('offer_delete',['id'=>$jquery->id])}}"><Button class="btn btn-danger btn-sm">Sil</Button></a>
+                            <a href="{{route('offer_file',['id' => $jquery->id])}}"><i class="fa fa-file-o btn btn-primary btn-sm"></i></a>
                         </td>
                     </tr>
                 @endforeach
