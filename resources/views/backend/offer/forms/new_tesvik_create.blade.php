@@ -84,42 +84,13 @@
                     <label for="exampleInputPassword1">Açıklama Giriniz</label>
                     <input type="text" name="explanation" class="form-control">
                 </div>
-                {{--        <div class="container">--}}
-                {{--            <div class="row">--}}
-                {{--                <div class="col-md-12">--}}
-                {{--                    <div data-role="dynamic-fields">--}}
-                {{--                        <div class="form-inline">--}}
-                {{--                            <div class="form-group">--}}
-                {{--                                <label class="sr-only" for="field-name">Not Ekleme</label>--}}
-                {{--                                <input type="text" name="not" class="form-control" id="field-name" placeholder="Not Yazınız">--}}
-                {{--                            </div>--}}
 
-                {{--                            <button class="btn btn-danger" data-role="remove">--}}
-                {{--                                <span class="glyphicon glyphicon-remove"></span>--}}
-                {{--                            </button>--}}
-                {{--                            <button class="btn btn-primary" data-role="add">--}}
-                {{--                                <span class="glyphicon glyphicon-plus"></span>--}}
-                {{--                            </button>--}}
-                {{--                        </div>  <!-- /div.form-inline -->--}}
-                {{--                    </div>  <!-- /div[data-role="dynamic-fields"] -->--}}
-                {{--                </div>  <!-- /div.col-md-12 -->--}}
-                {{--            </div>  <!-- /div.row -->--}}
-                {{--        </div>--}}
 
                 <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
                     <button class="btn btn-primary ">Word Oluştur</button>
                 </div>
 
-
-
             </form>
-            <div class="form-group col-md-10 col-sm3 col-xs-12 col" align="right">
-                <a href="{{ route('document_wordtopdf')}}">
-                    <button class="btn btn-danger">Pdf Çevir</button>
-                </a>
-            </div>
-
-
         </div>
     </div>
     <!--teşvik bitiş-->

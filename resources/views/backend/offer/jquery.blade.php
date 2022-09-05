@@ -7,7 +7,7 @@
 
                     @csrf
 
-                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
+                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col">
                         <select class="form-control" name="mounth">
                             <option value="">Seçiniz</option>
                             <option value="1">Ocak Ayı</option>
@@ -25,7 +25,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
+                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col">
                         <select class="form-control" name="year">
                             <option value="">Seçiniz</option>
                             <option value="2019">2019</option>
@@ -36,7 +36,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
+                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col">
                         <select class="form-control" name="product">
                             <option value="">Seciniz</option>
                             @foreach($products as $product)
@@ -45,7 +45,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col" >
+                    <div class="form-group col-md-2 col-sm-3 col-xs-12 col">
                         <select class="form-control" name="status">
                             <option value="">Seçiniz</option>
                             <option value="2">Kabul Edildi</option>
@@ -55,7 +55,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-1 col-sm-3 col-xs-12 col" >
+                    <div class="form-group col-md-1 col-sm-3 col-xs-12 col">
                         <button class="btn btn-success">Sorgula</button>
                     </div>
                 </form>
@@ -80,7 +80,8 @@
                 @php $say=1; @endphp
                 <tbody>
 
-                     @foreach($jquerys as $jquery) {
+                @foreach($jquerys as $jquery)
+                    {
 
                     <tr>
                         <th scope="row">@php echo $say++ @endphp</th>
@@ -120,14 +121,20 @@
                         </td>
 
                         <td>
-                            <a href="{{route('customer_edit',['id'=>$jquery->customer_id])}}" ><button class="btn btn-info btn-xs">Müşteri Düzenle</button></a>
+                            <a href="{{route('customer_edit',['id'=>$jquery->customer_id])}}">
+                                <button class="btn btn-info btn-xs">Müşteri Düzenle</button>
+                            </a>
                         </td>
 
                         <td>@if($jquery->offer_status==1)
-                                <a href="{{route('offer_status',['id'=>$jquery->id])}}" ><button class="btn btn-warning btn-xs">Bekleniyor</button></a>
+                                <a href="{{route('offer_status',['id'=>$jquery->id])}}">
+                                    <button class="btn btn-warning btn-xs">Bekleniyor</button>
+                                </a>
 
                             @elseif($jquery->offer_status==2)
-                                <a href="{{route('offer_status',['id'=>$jquery->id])}}" ><button class="btn btn-success btn-xs">Kabul Edildi</button></a>
+                                <a href="{{route('offer_status',['id'=>$jquery->id])}}">
+                                    <button class="btn btn-success btn-xs">Kabul Edildi</button>
+                                </a>
 
                             @elseif($jquery->offer_status==0)
                                 <button class="btn btn-danger btn-xs">Reddedildi</button>
@@ -135,9 +142,19 @@
 
                         </td>
 
-                        <td><a href="{{route('offer_edit',['id'=>$jquery->id])}}"><button class="btn btn-primary btn-sm">Güncelle</button></a>
-                            <a href="{{route('offer_delete',['id'=>$jquery->id])}}"><Button class="btn btn-danger btn-sm">Sil</Button></a>
-                            <a href="{{route('offer_file',['id' => $jquery->id])}}"><i class="fa fa-file-o btn btn-primary btn-sm"></i></a>
+                        <td><a href="{{route('offer_edit',['id'=>$jquery->id,'case'=>$jquery->product])}}">
+                                <button class="btn btn-success btn-sm">Güncelle</button>
+                            </a>
+                            <a href="{{route('offer_delete',['id'=>$jquery->id])}}">
+                                <button class="btn btn-danger btn-sm">Sil</button>
+                            </a>
+                            <a href="{{route('offer_agreement',['id' => $offer->id])}}">
+                                <button class="btn btn-primary btn-sm">Sözleşme Yükle</button>
+                            </a>
+
+                            <a href="{{route('offer_file',['id' => $jquery->id])}}"><i
+                                    class="fa fa-file-o btn btn-primary btn-sm"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -147,12 +164,16 @@
 
         </div>
 
-<div class="form-group col-md-2 col-sm-3 col-xs-12 col">
-     <label for="">Gönderilen Teklif</label>
-    <input class="form-control" type="text" value="{{number_format($jquerys->whereNotIn('product',1)->sum('offer_total'),2,',','.')}}" disabled="">
-    <label for="">Kabul Edilen Teklif </label>
-    <input class="form-control" type="text" value="{{number_format($jquerys->whereNotIn('product',1)->where('offer_status',2)->whereNotIn('product',1)->sum('offer_total'),2,',','.')}}" disabled="">
-</div>
+        <div class="form-group col-md-2 col-sm-3 col-xs-12 col">
+            <label for="">Gönderilen Teklif</label>
+            <input class="form-control" type="text"
+                   value="{{number_format($jquerys->whereNotIn('product',1)->sum('offer_total'),2,',','.')}}"
+                   disabled="">
+            <label for="">Kabul Edilen Teklif </label>
+            <input class="form-control" type="text"
+                   value="{{number_format($jquerys->whereNotIn('product',1)->where('offer_status',2)->whereNotIn('product',1)->sum('offer_total'),2,',','.')}}"
+                   disabled="">
+        </div>
 
 
     </section>
@@ -166,8 +187,6 @@
             });
         });
     </script>
-
-
 
 @endsection
 @section('css')@endsection

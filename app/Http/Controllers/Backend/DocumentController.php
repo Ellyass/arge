@@ -27,7 +27,6 @@ class DocumentController extends Controller
         return view('backend.offer.index');
     }
 
-
     public function tesvik_word_data(Request $request)
     {
 
@@ -81,8 +80,8 @@ class DocumentController extends Controller
                     ]);
                 }
             }
-            return response()->download($path);
-//            return redirect(route('offer_index'));
+//            return response()->download($path);
+            return redirect(route('offer_index'));
         }
     }
 
@@ -332,7 +331,7 @@ class DocumentController extends Controller
             $newtesvik = new TemplateProcessor('teklif_documents/ikmetrik.docx');
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
+
 
 
             $summary_ckeditor = str_replace(["\r\n", "\n", "\r", "\t", "&nbsp;", "<caption>", "</caption>", "<p>", "</p>"], '', $request->summary_ckeditor);
@@ -345,6 +344,7 @@ class DocumentController extends Controller
                 'cellMargin' => 80,
                 'valign' => 'center'
             ]);
+
             foreach ($summary_ckeditor_tr[1] as $tr) {
                 $table->addRow();
                 preg_match_all("/<td>(.*?)<\/td>/", $tr, $summary_ckeditor_td);
@@ -353,6 +353,7 @@ class DocumentController extends Controller
                     $table->addCell(1750)->addText(strip_tags($td), ['bold' => strstr($td, "strong") ? true : false]);
                 }
             }
+
             $newtesvik->setComplexBlock('summary_ckeditor', $table);
 
             $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
@@ -708,29 +709,4 @@ class DocumentController extends Controller
             return response()->download($path);
         }
     }
-
-
-    public function convert()
-    {
-        $path = session()->get('offer_file_path');
-
-        $random = rand(0, 999999999);
-        /* Set the PDF Engine Renderer Path */
-        $domPdfPath = base_path('vendor/dompdf/dompdf');
-        \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
-        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
-
-        //Load word file
-        $Content = \PhpOffice\PhpWord\IOFactory::load(public_path() . '/' . $path);
-
-
-        //Save it into PDF
-        $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content, 'PDF');
-
-        $PDFWriter->save(public_path('new-result.pdf'));
-        $PDFWriter->save(public_path() . '/pdf/' . $random . '.pdf');
-        echo 'Dosya Başarılı Bir Şekilde Çevirildi';
-    }
-
-
 }

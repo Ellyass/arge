@@ -92,37 +92,40 @@
                 </div>
                 <!-- teşvik bitiş-->
 
-                <script src="/backend/bower_components/jquery/dist/jquery.min.js"></script>
-                <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet"
-                      id="bootstrap-css">
-                <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+            </div>
+        </div>
+    </section>
 
+    <script src="/backend/bower_components/jquery/dist/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-                <script>
-                    $(document).ready(function () {
-                        $("select").change(function () {
-                            $("select option:selected").each(function () {
-                                if ($(this).attr("value") == "Aylık") {
-                                    $("#fixed").show();
-                                    $("#percentile").hide();
-                                    $("#tesviksy").show();
-                                }
-                                if ($(this).attr("value") == "Yüzdelik") {
-                                    $("#fixed").hide();
-                                    $("#percentile").show();
-                                    $("#tesviksy").show();
-                                }
-                                if ($(this).attr("value") == "null") {
-                                    $("#fixed").hide();
-                                    $("#percentile").hide();
-                                    $("#tesviksy").hide();
-                                }
-                            });
-                        }).change();
-                    });
-                </script>
-                <!--teşvik-->
+    <script>
+        $(document).ready(function () {
+            $("select").change(function () {
+                $("select option:selected").each(function () {
+                    if ($(this).attr("value") == "Aylık") {
+                        $("#fixed").show();
+                        $("#percentile").hide();
+                        $("#tesviksy").show();
+                    }
+                    if ($(this).attr("value") == "Yüzdelik") {
+                        $("#fixed").hide();
+                        $("#percentile").show();
+                        $("#tesviksy").show();
+                    }
+                    if ($(this).attr("value") == "null") {
+                        $("#fixed").hide();
+                        $("#percentile").hide();
+                        $("#tesviksy").hide();
+                    }
+                });
+            }).change();
+        });
+    </script>
+    <!--teşvik-->
+
 @endsection
 @section('css')@endsection
 @section('js')@endsection

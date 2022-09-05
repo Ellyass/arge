@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\TeklifReport;
 use App\Http\Controllers\Controller;
+use App\Models\Agreement;
 use App\Models\CallExplanation;
+use App\Models\OfferPdf;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
@@ -22,6 +25,7 @@ use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
 use File;
 use Prophecy\Call\Call;
+use Excel;
 
 
 class TeklifController extends Controller
@@ -230,25 +234,68 @@ class TeklifController extends Controller
             $offer_data->where('offer_status', $status)->sum('offer_total');
         }
 
-        $jquerys =$offer_data->get();
+        $jquerys = $offer_data->get();
         $products = Product::all();
 
         return view('backend.offer.jquery', compact('jquerys', 'products'));
     }
 
 
-    public function edit($id,$case)
+    public function edit($id, $case)
     {
         $offer = Offer::find($id);
-        $customers = Customer::where('id',$offer->customer_id)->first();
+        $customers = Customer::where('id', $offer->customer_id)->first();
         $sellers = TargetSeller::where('target_status', '1')->get();
 
         switch ($case) {
             case 1 :
-                {
-                    return view('backend.offer.edit.tesvik_edit', compact('sellers', 'offer','customers'));
-                }
-
+            {
+                return view('backend.offer.edit.tesvik_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 2:
+            {
+                return view('backend.offer.edit.kvkk_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 3:
+            {
+                return view('backend.offer.edit.egitim_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 4:
+            {
+                return view('backend.offer.edit.bordro_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 5:
+            {
+                return view('backend.offer.edit.danismanlik_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 6:
+            {
+                return view('backend.offer.edit.ikmetrik_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 7:
+            {
+                return view('backend.offer.edit.iys_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 9:
+            {
+                return view('backend.offer.edit.performans_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 10:
+            {
+                return view('backend.offer.edit.ebordro_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 11:
+            {
+                return view('backend.offer.edit.dkvkk_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 12:
+            {
+                return view('backend.offer.edit.dtesvik_edit', compact('sellers', 'offer', 'customers'));
+            }
+            case 13:
+            {
+                return view('backend.offer.edit.mesem_edit', compact('sellers', 'offer', 'customers'));
+            }
         }
     }
 
@@ -293,6 +340,7 @@ class TeklifController extends Controller
 
     public function update(Request $request)
     {
+
         $customer = Customer::where('id', $request->customer_id)->first();
         $seller = TargetSeller::where('id', $request->target_Seller_id)->first();
         $product = Product::where('id', $request->product_id)->first();
@@ -545,8 +593,6 @@ class TeklifController extends Controller
             $newtesvik = new TemplateProcessor('teklif_documents/ikmetrik.docx');
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-            $newtesvik->setValue('summary_ckeditor', $request->summary_ckeditor);
-
 
             $summary_ckeditor = str_replace(["\r\n", "\n", "\r", "\t", "&nbsp;", "<caption>", "</caption>", "<p>", "</p>"], '', $request->summary_ckeditor);
             preg_match("/<tbody>(.*)<\/tbody>/", $summary_ckeditor, $summary_ckeditor_tbody);
@@ -880,16 +926,17 @@ class TeklifController extends Controller
     public function file($id)
     {
         $offer = Offer::find($id);
-        $call = CallExplanation::where('offer_id',$offer->id)->get();
+        $call = CallExplanation::where('offer_id', $offer->id)->get();
         $customer = Customer::where('id', $offer->customer_id);
-        return view('backend.offer.detail', compact('offer', 'customer','call'));
+        return view('backend.offer.detail', compact('offer', 'customer', 'call'));
     }
 
 
-    public function callExplanation(Request $request){
-        $call = CallExplanation::where('offer_id',$request->offer_id)->get();
-        $offer = Offer::where('id',$request->offer_id)->first();
-        $customer = Customer::where('id',$request->customer_id)->first();
+    public function callExplanation(Request $request)
+    {
+        $call = CallExplanation::where('offer_id', $request->offer_id)->get();
+        $offer = Offer::where('id', $request->offer_id)->first();
+        $customer = Customer::where('id', $request->customer_id)->first();
 
 
         $calls = CallExplanation::create([
@@ -897,19 +944,60 @@ class TeklifController extends Controller
             'offer_id' => $request->offer_id,
             'call_explanation' => isset($request->call_explanation) ? $request->call_explanation : ' '
         ]);
-        $id=$request->offer_id;
+        $id = $request->offer_id;
 
-        return redirect(route('nots',['id' => $id]));
+        return redirect(route('nots', ['id' => $id]));
     }
+
 
     public function callss($id)
     {
-        $call = CallExplanation::where('offer_id',$id)->orderBy('id','ASC')->get();
-        $offer = Offer::where('id',$id)->first();
-        $customer = Customer::where('id',$offer->customer_id)->first();
+        $call = CallExplanation::where('offer_id', $id)->orderBy('id', 'ASC')->get();
+        $offer = Offer::where('id', $id)->first();
+        $customer = Customer::where('id', $offer->customer_id)->first();
 
-        return view('backend.offer.detail', compact('call','offer','customer'))->with('success', 'İşlem Başarılı');
+        return view('backend.offer.detail', compact('call', 'offer', 'customer'))->with('success', 'İşlem Başarılı');
     }
+
+
+    public function teklifReport(Request $request)
+    {
+        $datas = $request;
+
+        $offers = Offer::whereBetween('offer_date', [date('Y-m-d', strtotime($request->first_date)), date('Y-m-d', strtotime($request->last_date))])
+            ->whereIn('product', $request->types)
+            ->whereIn('offer_status', $request->status)
+            ->get();
+
+        return Excel::download(new TeklifReport($offers, $datas), 'Teklifler.xlsx');
+
+    }
+
+
+    public function agreement($id)
+    {
+        $offer = Offer::find($id);
+        return view('backend.offer.offer_agreement',compact('offer'));
+    }
+
+
+    public function agreementpost(Request $request)
+    {
+        File::makeDirectory('pdf/' . $request->customer_id, 0777, true, true);
+       // $file_name = uniqid().'.'.$request->offer_file->getClientOriginalExtension();
+        $file_name = $request->offer_file->getClientOriginalName();
+        $request->offer_file->move(public_path('pdf/'.$request->customer_id.'/'),$file_name);
+        $pdf=OfferPdf::create([
+            'offer_id' => $request->offer_id,
+            'customer_id' => $request->customer_id,
+            'offer_pdf' => 'pdf/'.$request->customer_id.'/'.$file_name
+        ]);
+        if($pdf)
+        {
+            return redirect(route('offer_index'))->with('success','işlem başarılı');
+        }
+    }
+
 
 }
 

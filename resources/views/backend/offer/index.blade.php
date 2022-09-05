@@ -39,19 +39,18 @@
                     <div class="form-group col-md-2 col-sm-3 col-xs-12 col">
                         <select class="form-control" name="product">
                             <option value="">Seciniz</option>
-                            <option value="Teşvik">Teşvik</option>
-                            <option value="Kvkk">Kvkk</option>
-                            <option value="Eğitim">Eğitim</option>
-                            <option value="Bordroloma">Bordroloma</option>
-                            <option value="Danışmanlık">Danışmanlık</option>
-                            <option value="İkmetrik">İkmetrik</option>
-                            <option value="İys Danışmanlık">İys Danışmanlık</option>
-                            <option value="Yazılım">YAZILIM</option>
-                            <option value="Performans">PERFORMANS</option>
-                            <option value="ebordro">E-BORDRO</option>
-                            <option value="dijitajkvkk">Dijital KVKK</option>
-                            <option value="dijital">Dijital TEŞVİK</option>
-                            <option value="mesem">Mesem TEŞVİK</option>
+                            <option value="1">Teşvik</option>
+                            <option value="2">Kvkk</option>
+                            <option value="3">Eğitim</option>
+                            <option value="4">Bordroloma</option>
+                            <option value="5">Danışmanlık</option>
+                            <option value="6">İkmetrik</option>
+                            <option value="7">İys Danışmanlık</option>
+                            <option value="9">PERFORMANS</option>
+                            <option value="10">E-BORDRO</option>
+                            <option value="11">Dijital KVKK</option>
+                            <option value="12">Dijital TEŞVİK</option>
+                            <option value="13">Mesem TEŞVİK</option>
                         </select>
                     </div>
 
@@ -61,7 +60,6 @@
                             <option value="2">Kabul Edildi</option>
                             <option value="1">Bekleniyor</option>
                             <option value="0">Reddedildi</option>
-
                         </select>
                     </div>
 
@@ -69,6 +67,12 @@
                         <button class="btn btn-success ">Sorgula</button>
                     </div>
                 </form>
+
+                <div class="form-group col-md-1 col-sm-3 col-xs-12 col">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
+                            id="open">Rapor Oluştur
+                    </button>
+                </div>
             </div>
 
 
@@ -159,7 +163,8 @@
                                 <a href="{{route('offer_delete',['id'=>$offer->id])}}">
                                     <Button class="btn btn-danger btn-sm "><span class="fa fa-trash"></span></Button>
                                 </a>
-                                {{--                           <a href="{{route('offer_file',['id' => $offer->id])}}"><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a>--}}
+                                <a href="{{route('offer_agreement',['id' => $offer->id])}}"><button class="btn btn-primary btn-sm">Sözleşme Yükle</button></a>
+
                                 <a href="{{route('offer_file',['id' => $offer->id])}}"><i
                                         class="fa fa-file-o btn btn-primary btn-sm"></i></a>
                             </td>
@@ -169,27 +174,89 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="container">
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Teklif Raporu Al</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{route('teklif.teklifReport')}}" method="POST">
+                                    @csrf
+                                    <div class="form-group col-md-12">
+
+                                        <div class="col-md-6">
+                                            <label for="first_date">Başlangıç Tarihi:</label>
+                                            <input type="date" class="form-control" name="first_date" id="first_date">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="last_date">Bitiş Tarihi:</label>
+                                            <input type="date" class="form-control" name="last_date" id="last_date">
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="form-group col-xl-12">
+                                            <label for="statu">Teklif Durumu:</label>
+                                            <select class="js-example-basic-multiple form-control" style="width: 100%"
+                                                    name="status[]" multiple>
+                                                <option value="0" selected>Reddilen</option>
+                                                <option value="1" selected>Bekleyen</option>
+                                                <option value="2" selected>Kabul Edilen</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="">
+                                        <div class="form-group col-xl-12">
+                                            <label for="type">Teklif Türü:</label>
+                                            <select class="js-example-basic-multiple form-control" style="width: 100%" name="types[]" multiple>
+                                                <option value="1">TEŞVİK</option>
+                                                <option value="2">KVKK</option>
+                                                <option value="3">EĞİTİM</option>
+                                                <option value="4">BORDROLAMA</option>
+                                                <option value="5">DANIŞMANLIK</option>
+                                                <option value="6">İKMETRİK</option>
+                                                <option value="7">İYS DANIŞMANLIK</option>
+                                                <option value="9">PERFORMANS</option>
+                                                <option value="10">E-BORDRO</option>
+                                                <option value="11">DİJİTAL KVKK</option>
+                                                <option value="12">DİJİTAL TEŞVİK</option>
+                                                <option value="13">MESEM TEŞVİK</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Vazgeç
+                                        </button>
+                                        <button type="submit" class="btn btn-success">Rapor Al</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <link r href="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js">
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-    <link href="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js">
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/1.1.1/js/dataTables.searchPanes.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css"/>
+    <link href="/Backend/netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="/Backend/netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/Backend/code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <script>
         $(function () {
@@ -214,6 +281,12 @@
                     'copy'
                 ]
             });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
         });
     </script>
 

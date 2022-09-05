@@ -104,12 +104,6 @@
                 <button class="btn btn-primary">Word Oluştur</button>
             </div>
         </form>
-
-        <div class="form-group col-md-10 col-sm3 col-xs-12 col" align="right">
-            <a href="{{ route('document_wordtopdf')}}">
-                <button class="btn btn-danger">Pdf Çevir</button>
-            </a>
-        </div>
     </div>
     <!--kvkk bitiş-->
 

@@ -33,9 +33,11 @@ Route::prefix('admin')->group(function () {
 
 
 
-Route::get('/email/destroy/{id}', 'Backend\CustomersEmailcontroller@destroy')->name('email_destroy');
-Route::post('email/update/post/{id}', 'Backend\CustomersEmailcontroller@update')->name('email_update');
-Route::get('/email/edit/{id}', 'Backend\CustomersEmailcontroller@edit')->name('email_edit');
+Route::prefix('email')->group(function () {
+    Route::get('/destroy/{id}', 'Backend\CustomersEmailcontroller@destroy')->name('email_destroy');
+    Route::post('/update/post/{id}', 'Backend\CustomersEmailcontroller@update')->name('email_update');
+    Route::get('/edit/{id}', 'Backend\CustomersEmailcontroller@edit')->name('email_edit');
+});
 
 
 
@@ -45,6 +47,8 @@ Route::prefix('offer')->group(function () {
     Route::get('/status/{id}', 'Backend\TeklifController@status')->name('offer_status');
     Route::post('/import', 'Backend\TeklifController@import')->name('offer_import');
     Route::get('/edit/{id}/{case}', 'Backend\TeklifController@edit')->name('offer_edit');
+    Route::get('/agreement/{id}','Backend\TeklifController@agreement')->name('offer_agreement');
+    Route::post('/agreement','Backend\TeklifController@agreementpost')->name('offer_agreement_post');
     Route::post('/update', 'Backend\TeklifController@update')->name('offer_update');
     Route::post('/status/up/{id}', 'Backend\TeklifController@up')->name('status_up');
 });
@@ -122,15 +126,7 @@ Route::get('/document/convert_word_to_pdf', 'Backend\DocumentController@convert'
 
 
 
-
-Route::get('cron_30_min','Backend\CronController@cron_30_min')->name('cron_30_min');
-Route::get('cron_one_week','Backend\CronController@cron_one_week')->name('cron_one_week');
-Route::get('cron_two_week','Backend\CronController@cron_two_week')->name('cron_two_week');
-
-
-
-
-
+Route::post('teklif/report','Backend\TeklifController@teklifReport')->name('teklif.teklifReport');
 //Route::get('notification','Backend\NotificationController@index')->name('notification.index');
 //Route::get('/create/tesvik','Backend\TeklifController@offersIndex')->name('load_tesvik');
 //Route::get('contract/upload/{id}','Backend\TeklifController@contract_upload')->name('contract_upload');

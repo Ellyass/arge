@@ -3,6 +3,7 @@
     <section class="content-header">
         <div class="box box-primary"></div>
         <div class="box-header with-border"></div>
+
         <table class="table">
             <thead>
             <tr>
@@ -60,7 +61,7 @@
 
                                     <div>
                                         @foreach($call as $cal)
-                                            <input class="form-control" type="text" value="<?php echo  $arama++. '.Arama: '  ?>{{$cal->call_explanation}}">
+                                            <input class="form-control" type="text" value="{{$arama++. '.Arama: '}} {{$cal->call_explanation}}">
                                              <br>
                                         @endforeach
                                     </div>
@@ -98,13 +99,12 @@
             @foreach($offer->files as $file )
                 <tr>
                     <td><?php echo $sayi++; ?></td>
-                    <td><?php echo date('d.m.Y', strtotime($offer->offer_date)) ?></td>
-                    <td><a href="{{ url($file->offer_file) }}"><img
-                                src="https://img.icons8.com/officel/40/000000/word.png"/></a>
-                    <td><a href="#"><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a></td>
+                    <td>{{date('d.m.Y', strtotime($offer->offer_date)) }}</td>
+                    <td><a href="{{ url($file->offer_file) }}"><img src="https://img.icons8.com/officel/40/000000/word.png"/></a>
+                    <td><a href="{{!empty($offer->pdfs->offer_pdf) ? url($offer->pdfs->offer_pdf) : ''}}" download=""><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a></td>
 
-                    <form id="offerDelete{{$file->id}}" action="{{route('detail_offer_delete',['id'=>$file->id])}}"
-                          method="POST">
+                    <form id="offerDelete" action="{{route('detail_offer_delete',['id'=>$file->id])}}" method="POST">
+
                         @csrf
                         <td>
                             <button data-id="{{$file->id}}" class="btn btn-danger">Sil</button>
@@ -121,7 +121,7 @@
 <script>
     function formgonder(check_value, column) {
         var value = $(check_value).attr('value');
-        var id = <?php  echo $id = $offer->id ?>;
+        var id = {{$id = $offer->id}};
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

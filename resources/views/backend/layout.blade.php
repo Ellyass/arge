@@ -157,18 +157,16 @@
                 </li>
 
                 <li class="treeview">
+
                     <a href="#"><i class="fa fa-handshake-o"></i> <span>Teklif İşlemleri</span>
                         <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                     </a>
+
                     <ul class="treeview-menu">
                         <li><a href="{{route('offer_new_create')}}">- Teklif Ver</a></li>
-                        {{--                        <li><a href="{{route('offer_create')}}">Teklif Ver (Eski Sistem)</a></li>--}}
                         <li><a href="{{route('offer_index')}}">- Teklif Tablom</a></li>
-
-                        {{--                        <li><a href="{{route('offer.report')}}"><i class="fa fa-users"> </i>Rapor Bilgisi</a></li>--}}
-                        {{--                        <li><a href="{{route('notification.index')}}"><i class="fa fa-users"> </i>Teklif Bildirim </a></li>--}}
                     </ul>
                 </li>
 
@@ -191,7 +189,6 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <!-- burası -->
         @yield('content')
         <!-- /.content -->
     </div>
