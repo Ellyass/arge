@@ -234,6 +234,8 @@
 </script>
 
 
+
+
 @if(session()->has('success'))
     <script>alertify.success('{{session('success')}}')</script>
 @endif

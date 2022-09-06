@@ -90,10 +90,12 @@
             </div>
 
 
-            <textarea class="form-control" id="summary_ckeditor" name="summary_ckeditor"></textarea>
-            <script>
-                CKEDITOR.replace('editor1');
-            </script>
+            <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
+                <textarea class="form-control" id="summary_ckeditor" name="summary_ckeditor"></textarea>
+                <script>
+                    CKEDITOR.replace('editor1');
+                </script>
+            </div>
 
 
             <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">

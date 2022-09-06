@@ -77,6 +77,16 @@
 
 
             <div class="box-body">
+
+                <form>
+                    <div id="box">
+                        <input type="text" id="search" class="search" placeholder="Ara..">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </form>
+
+
+
                 <table class="table" id="paginationNumber" class="display nowrap">
                     <thead>
                     <tr>
@@ -290,6 +300,17 @@
         });
     </script>
 
+    <script>
+        var $rows = $('#paginationNumber tr');
+        $('#search').keyup(function() {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+            $rows.show().filter(function() {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
 @endsection
 @section('css')@endsection
 @section('js')@endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\Explanation;
 use App\Models\Offer;
@@ -37,19 +38,21 @@ class DocumentController extends Controller
         $explanation = Explanation::where('id', $request->explanation_id)->first();
 
         if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/tesvik.docx');
+
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\tesvik.docx'));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('customer_address', $customer->address);
             $newtesvik->setValue('accept_type', isset($request->accept_type) ? $request->accept_type == 'Aylık' ? number_format($request->offer_money, 2, ',', '.') . ' ₺ ' . '/ ' . $request->accept_type : ' % ' . $request->offer_money : '');
             $newtesvik->setValue('kdv', $request->kdv);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
+            $newtesvik->SaveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
+//            session(['offer_file_path' => $path]);
+           // Storage::disk('storage')->put($path, \Illuminate\Support\Facades\File::get($newtesvik));
 
 
             $offers = Offer::create([
@@ -95,10 +98,10 @@ class DocumentController extends Controller
 
 
         if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/KVKK.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\KVKK.docx'));
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('offer_money', number_format($request->offer_money, 2, ',', '.') . ' ₺');
@@ -107,10 +110,10 @@ class DocumentController extends Controller
             $newtesvik->setValue('kdv', $request->kdv);
             $newtesvik->setValue('offer_not', isset($request->offer_not) ? $request->offer_not : null);
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
+            $newtesvik->saveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
 
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
+//            session(['offer_file_path' => $path]);
 
             $offers = Offer::create([
                 'customer_id' => $request->customer_id,
@@ -141,8 +144,8 @@ class DocumentController extends Controller
                 }
             }
 
-            return response()->download($path);
-//            return redirect(route('offer_index'));
+            return redirect(route('offer_index'));
+
         }
     }
 
@@ -219,10 +222,10 @@ class DocumentController extends Controller
         }
 
         if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/bordrolama .docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\bordrolama .docx'));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('customer_address', $customer->address);
             $newtesvik->setValue('bordro_type', isset($request->bordro_type) ? $request->bordro_type == 'bordro_ucret' ? 'Bordro Başı Ücret' . ' ' . $request->offer_money . ' ₺' : number_format($request->offer_money, 2, ',', '.') . 'TL' : '');
@@ -230,12 +233,9 @@ class DocumentController extends Controller
             $newtesvik->setValue('tesvik_money', $request->tesvik_money);
             $newtesvik->setValue('kdv', $request->kdv);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-            //$newtesvik->setValue('offer_explanation', $request->offer_explanation);
 
-
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
+            $newtesvik->SaveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
 
             $offers = Offer::create([
                 'customer_id' => $request->customer_id,
@@ -267,8 +267,8 @@ class DocumentController extends Controller
             }
 
 
-            return response()->download($path);
-//            return redirect(route('offer_index'));
+//            return response()->download($path);
+            return redirect(route('offer_index'));
         }
     }
 
@@ -325,10 +325,10 @@ class DocumentController extends Controller
 
 
         if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/ikmetrik.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\ikmetrik.docx'));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
 
@@ -356,10 +356,8 @@ class DocumentController extends Controller
 
             $newtesvik->setComplexBlock('summary_ckeditor', $table);
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
-
+            $newtesvik->SaveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
 
             $offers = Offer::create([
                 'customer_id' => $request->customer_id,
@@ -390,8 +388,8 @@ class DocumentController extends Controller
                 }
             }
 
-            return response()->download($path);
-//            return redirect(route('offer_index'));
+//            return response()->download($path);
+            return redirect(route('offer_index'));
         }
     }
 
@@ -448,10 +446,10 @@ class DocumentController extends Controller
 
 
         if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/ebordro.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\ebordro.docx'));
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('customer_address', $customer->address);
@@ -460,10 +458,9 @@ class DocumentController extends Controller
             $newtesvik->setValue('kdv', $request->kdv);
 
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
+            $newtesvik->saveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
 
             $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
 
 
             $offers = Offer::create([
@@ -496,8 +493,8 @@ class DocumentController extends Controller
             }
 
 
-            return response()->download($path);
-//            return redirect(route('offer_index'));
+//            return response()->download($path);
+            return redirect(route('offer_index'));
         }
     }
 
@@ -553,20 +550,19 @@ class DocumentController extends Controller
 
 
         if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/dkvkk.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\dkvkk.docx'));
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('accept_type', $request->accept_type);
             $newtesvik->setValue('offer_money', $request->offer_money . ' ₺');
             $newtesvik->setValue('offer_yazılım', $request->offer_yazılım . ' ₺');
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
+            $newtesvik->SaveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
 
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
 
             $offers = Offer::create([
                 'customer_id' => $request->customer_id,
@@ -597,8 +593,8 @@ class DocumentController extends Controller
                 }
             }
 
-            return response()->download($path);
-//            return redirect(route('offer_index'));
+//            return response()->download($path);
+            return redirect(route('offer_index'));
         }
     }
 
@@ -658,10 +654,10 @@ class DocumentController extends Controller
 
 
         if ($customer) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/mesem.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\mesem.docx'));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('customer_address', $customer->address);
             $newtesvik->setValue('accept_type', isset($request->accept_type) ? $request->accept_type == 'Aylık' ? number_format($request->offer_money, 2, ',', '.') . ' ₺ ' . '/ ' . $request->accept_type : ' % ' . $request->offer_money : '');
@@ -671,8 +667,8 @@ class DocumentController extends Controller
             //$newtesvik->setValue('offer_explanation', $request->offer_explanation);
 
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
+            $newtesvik->SaveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
             session(['offer_file_path' => $path]);
 
 
@@ -706,7 +702,8 @@ class DocumentController extends Controller
                 }
             }
 
-            return response()->download($path);
+//            return response()->download($path);
+            return redirect(route('offer_index'));
         }
     }
 }

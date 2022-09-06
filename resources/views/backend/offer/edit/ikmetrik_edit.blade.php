@@ -38,7 +38,7 @@
                             <input type="text" name="alici" class="form-control">
                         </div>
 
-                        <div id="month" class="form-group col-md-6 col-sm-3 col-xs-12">
+                        <div id="month" class="form-group col-md-5 col-sm-3 col-xs-12">
                             <label for="exampleInputPassword1">Aylık</label>
                             <select class="form-control" name="Month">
                                 <option selected value="">Seçiniz</option>
@@ -84,12 +84,12 @@
                             <input type="text" name="explanation" class="form-control">
                         </div>
 
-
-                        <textarea class="form-control" id="summary_ckeditor" name="summary_ckeditor"></textarea>
-                        <script>
-                            CKEDITOR.replace('editor1');
-                        </script>
-
+                        <div class="form-group col-md-10 col-sm-3 col-xs-12 col">
+                            <textarea class="form-control" id="summary_ckeditor" name="summary_ckeditor"></textarea>
+                            <script>
+                                CKEDITOR.replace('editor1');
+                            </script>
+                        </div>
 
                         <div class="form-group col-md-10 col-sm-3 col-xs-12 col" align="right">
                             <button class="btn btn-success">Teklif Kaydet</button>
