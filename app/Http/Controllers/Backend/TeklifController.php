@@ -394,12 +394,12 @@ class TeklifController extends Controller
             }
 
             if ($explanations) {
-                return response()->download(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+                return response()->download(Storage::disk('storage')->path('offer_uploads'. '/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
             } else {
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//tesvik
         if ($request->product == 2) {
 
             File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
@@ -454,7 +454,7 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//kvkk
         if ($request->product == 3) {
 
             $updates = Offer::where('id', $request->offer_id)->update([
@@ -492,7 +492,7 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//egitim
         if ($request->product == 4) {
 
             File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
@@ -548,7 +548,7 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//bordrolama
         if ($request->product == 5) {
             $updates = Offer::where('id', $request->offer_id)->update([
                 'customer_id' => $request->customer_id,
@@ -585,7 +585,7 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//danışmanlık
         if ($request->product == 6) {
 
             File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
@@ -657,7 +657,7 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//ikmetrik
         if ($request->product == 7) {
             $updates = Offer::where('id', $request->offer_id)->update([
                 'customer_id' => $request->customer_id,
@@ -693,7 +693,7 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//iys
         if ($request->product == 9) {
             $updates = Offer::where('id', $request->offer_id)->update([
                 'customer_id' => $request->customer_id,
@@ -729,13 +729,13 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//performans
         if ($request->product == 10) {
 
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/ebordro.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\ebordro.docx'));
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('customer_address', $customer->address);
@@ -744,10 +744,9 @@ class TeklifController extends Controller
             $newtesvik->setValue('kdv', $request->kdv);
 
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
+            $newtesvik->saveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
+//            session(['offer_file_path' => $path]);
 
             $updates = Offer::where('id', $request->offer_id)->update([
                 'customer_id' => $request->customer_id,
@@ -778,27 +777,27 @@ class TeklifController extends Controller
             }
 
             if ($explanations) {
-                return response()->download($path);
+                return response()->download(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
             } else {
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//e/bordro
         if ($request->product == 11) {
 
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/dkvkk.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\dkvkk.docx'));
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('accept_type', $request->accept_type);
             $newtesvik->setValue('offer_money', $request->offer_money . ' ₺');
             $newtesvik->setValue('offer_yazılım', $request->offer_yazılım . ' ₺');
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
+            $newtesvik->saveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
+//            session(['offer_file_path' => $path]);
 
 
             $updates = Offer::where('id', $request->offer_id)->update([
@@ -829,12 +828,12 @@ class TeklifController extends Controller
                 }
             }
             if ($explanations) {
-                return response()->download($path);
+                return response()->download(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
             } else {
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//dkvkk
         if ($request->product == 12) {
             $updates = Offer::where('id', $request->offer_id)->update([
                 'customer_id' => $request->customer_id,
@@ -870,12 +869,12 @@ class TeklifController extends Controller
                 return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
             }
         }
-
+//dtesvik
         if ($request->product == 13) {
-            File::makeDirectory('teklif_saves/' . $customer->id, 0777, true, true);
+            File::makeDirectory('public/storage/uploads/offer_uploads' . $customer->id, 0777, true, true);
             Settings::setOutputEscapingEnabled(true);
             $random_new_tesvik = rand(0, 999999999);
-            $newtesvik = new TemplateProcessor('teklif_documents/mesem.docx');
+            $newtesvik = new TemplateProcessor(Storage::disk('storage')->path('offer_documents\mesem.docx'));
             $newtesvik->setValue('customer_name', $customer->name);
             $newtesvik->setValue('customer_address', $customer->address);
             $newtesvik->setValue('accept_type', isset($request->accept_type) ? $request->accept_type == 'Aylık' ? number_format($request->offer_money, 2, ',', '.') . ' ₺ ' . '/ ' . $request->accept_type : ' % ' . $request->offer_money : '');
@@ -885,9 +884,9 @@ class TeklifController extends Controller
             //$newtesvik->setValue('offer_explanation', $request->offer_explanation);
 
 
-            $newtesvik->saveAs('teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx');
-            $path = 'teklif_saves/' . $customer->id . '/' . $random_new_tesvik . '.docx';
-            session(['offer_file_path' => $path]);
+            $newtesvik->saveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
+//            session(['offer_file_path' => $path]);
 
 
             $updates = Offer::where('id', $request->offer_id)->update([
@@ -918,13 +917,13 @@ class TeklifController extends Controller
                     ]);
                 }
                 if ($explanations) {
-                    return response()->download($path);
+                    return response()->download(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
                 } else {
                     return redirect(route('offer_index'))->with('error', 'Güncelleme İşlemi Başarısız');
                 }
             }
         }
-
+//mesem
     }
 
 

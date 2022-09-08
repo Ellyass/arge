@@ -100,7 +100,7 @@
                 <tr>
                     <td><?php echo $sayi++; ?></td>
                     <td>{{date('d.m.Y', strtotime($offer->offer_date)) }}</td>
-                    <td><a href="{{ url($file->offer_file) }}"><img src="https://img.icons8.com/officel/40/000000/word.png"/></a>
+                    <td><a href="{{($file->offer_file)}}"><img src="https://img.icons8.com/officel/40/000000/word.png"/></a>
                     <td><a href="{{!empty($offer->pdfs->offer_pdf) ? url($offer->pdfs->offer_pdf) : ''}}" download=""><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a></td>
 
                     <form id="offerDelete" action="{{route('detail_offer_delete',['id'=>$file->id])}}" method="POST">
