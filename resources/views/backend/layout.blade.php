@@ -177,7 +177,7 @@
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('cos_index')}}">- Masraf Formu</a></li>
+                        <li><a href="{{route('cost_index')}}">- Masraf Formu</a></li>
                     </ul>
                 </li>
             </ul>
@@ -197,7 +197,7 @@
     <footer class="main-footer">
         <!-- To the right -->
         <!-- Default to the left -->
-        <strong>MorePayroll &copy; 2022 <a href="https://www.morepayroll.com/">Company</a>.</strong> Telif Hakkı Saklıdır.
+        <strong>Elyesa Aydemir &copy; 2022 <a href="https://www.morepayroll.com/">Company</a>.</strong> Telif Hakkı Saklıdır.
     </footer>
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed

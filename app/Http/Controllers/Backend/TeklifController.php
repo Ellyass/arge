@@ -360,7 +360,7 @@ class TeklifController extends Controller
             $newtesvik->setValue('kdv', $request->kdv);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
 
-            $newtesvik->saveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $newtesvik->saveAs(Storage::disk('storage')->path('offer_uploads' . '/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
             $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
 //            session(['offer_file_path' => $path]);
 
@@ -1001,7 +1001,6 @@ class TeklifController extends Controller
             return redirect(route('offer_index'))->with('success','işlem başarılı');
         }
     }
-
 
 }
 

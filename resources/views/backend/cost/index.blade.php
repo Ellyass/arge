@@ -9,7 +9,7 @@
             <div class="box-header with-border">
 
 
-{{--                <div align="right"><a href="{{route('cost_create')}}"><button class="btn btn-success btn-xs">Masraf Ekle</button></a></div>--}}
+                <div align="right"><a href="{{route('cost_add')}}"><button class="btn btn-success btn-xs">Masraf Ekle</button></a></div>
 
                 <table id="paginationNumbers" class="table" width="100%">
                     <?php
@@ -55,10 +55,10 @@
 
                             <td>
 
-{{--                                <form  id="costDelete{{ $cost->id }}" action="{{route('cost.delete',['id' => $cost->id])}}" method="POST">--}}
-{{--                                    @csrf--}}
-{{--                                    <button  id="{{$cost->id}}"  type="button" class="btn btn-danger sil">Sil</button>--}}
-{{--                                </form>--}}
+                                <form  id="costDelete{{ $cost->id }}" action="{{route('cost_delete',['id' => $cost->id])}}" method="POST">
+                                    @csrf
+                                    <button  id="{{$cost->id}}"  type="button" class="btn btn-danger sil">Sil</button>
+                                </form>
 
                             </td>
 

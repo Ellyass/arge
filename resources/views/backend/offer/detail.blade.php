@@ -9,7 +9,7 @@
             <tr>
                 <th scope="col">Firma</th>
                 <th scope="col">Teklif Veren</th>
-                <th>Müşteri Durumu</th>
+                <th scope="col">Müşteri Durumu</th>
                 <th scope="col">Birim Fiyatı</th>
                 <th scope="col">Dış Kaynak/Satışçı</th>
                 <th scope="col">Not</th>
@@ -29,7 +29,24 @@
                 @endif
 
                 </form></td>
-                <td>{{$offer->offer_money}}</td>
+                    @if($offer->accept_type=='Aylık')
+                        <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
+                    @elseif(
+                $offer->product == 2 or
+                $offer->product == 3 or
+                $offer->product == 4 or
+                $offer->product == 5 or
+                $offer->product == 6 or
+                $offer->product == 7 or
+                $offer->product == 8 or
+                $offer->product == 9 or
+                $offer->product == 10 or
+                $offer->product == 11 or
+                $offer->product == 12)
+                        <td>{{number_format($offer->offer_money,2,',','.').' ₺'}}</td>
+                    @else
+                        <td>{{'% '.number_format($offer->offer_total,2,',','.')}}</td>
+                    @endif
                 <td>{{$offer->seller->seller_name}}</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -100,7 +117,7 @@
                 <tr>
                     <td><?php echo $sayi++; ?></td>
                     <td>{{date('d.m.Y', strtotime($offer->offer_date)) }}</td>
-                    <td><a href="{{($file->offer_file)}}"><img src="https://img.icons8.com/officel/40/000000/word.png"/></a>
+                    <td><a href="{{!empty($file->offer_file) ? url($file->offer_file)  :  ''}}"><img src="https://img.icons8.com/officel/40/000000/word.png"/></a>
                     <td><a href="{{!empty($offer->pdfs->offer_pdf) ? url($offer->pdfs->offer_pdf) : ''}}" download=""><img src="https://img.icons8.com/officel/40/000000/pdf.png"/></a></td>
 
                     <form id="offerDelete" action="{{route('detail_offer_delete',['id'=>$file->id])}}" method="POST">

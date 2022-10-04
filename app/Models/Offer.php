@@ -62,7 +62,7 @@ class Offer extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Users');
     }
 
     public function target()

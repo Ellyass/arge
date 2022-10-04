@@ -7,7 +7,9 @@
             </div>
 
             <div align="right">
-                    <a href="{{route('customer_add')}}"><button class="btn btn-success" >Yeni Müşteri Ekle</button></a>
+                <a href="{{route('customer_add')}}">
+                    <button class="btn btn-success">Yeni Müşteri Ekle</button>
+                </a>
             </div>
 
             <div class="box-body">
@@ -28,7 +30,8 @@
                             <td>{{$customer->name}}</td>
                             <td>
                                 @foreach($customer->customer_types as $customer_type)
-                                <span class=" label label-primary">{{config('variables.customers.types')[$customer_type->type]}}</span>
+                                    <span
+                                        class=" label label-primary">{{config('variables.customers.types')[$customer_type->type]}}</span>
                                 @endforeach
                             </td>
 
@@ -37,18 +40,31 @@
                                     class="label label-warning">{{config('variables.customers.status')[$customer->status]}}
                                 </span>
                             </td>
+
                             <td>@if($customer->is_deleted==0)
                                     <span class="label label-primary">Aktif</span>
                                 @else
                                     <span class="label label-danger">Pasif</span>
                             </td>
                             @endif
-                            <td><a href="{{route('customer_edit',['id' => $customer->id])}}"><button type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></a></td>
+                            <td><a href="{{route('customer_edit',['id' => $customer->id])}}">
+                                    <button type="button" class="btn btn-info btn-sm"><span
+                                            class="glyphicon glyphicon-pencil"></span></button>
+                                </a>
+                            </td>
 
-                        @if($customer->is_deleted==0)
-                                <td><a href="{{route('customer_destroy', ['id' => $customer->id])}}"><button type="button" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></button></a> </td>
+                            @if($customer->is_deleted==0)
+                                <td><a href="{{route('customer_destroy', ['id' => $customer->id])}}">
+                                        <button type="button" class="btn btn-danger btn-sm"><span
+                                                class="fa fa-trash"></span></button>
+                                    </a>
+                                </td>
                             @else
-                                <td><a href="{{route('customer_destroy', ['id' => $customer->id])}}"><button type="button" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok"></span></button></a></td>
+                                <td><a href="{{route('customer_destroy', ['id' => $customer->id])}}">
+                                        <button type="button" class="btn btn-success btn-sm"><span
+                                                class="glyphicon glyphicon-ok"></span></button>
+                                    </a>
+                                </td>
                             @endif
                         </tr>
                     @endforeach
@@ -71,12 +87,9 @@
                 'autoWidth'   : true
             })
         })
-
     </script>
 
-
 @endsection
-
 @section('css')@endsection
 @section('js')@endsection
 

@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\CostFrom;
-use App\Models\User;
+use App\Models\CostForm;
+use App\Models\Users;
 
 
 class Cost extends Model
@@ -18,10 +18,12 @@ class Cost extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->hasMany('App\Models\Users');
     }
+
     public function  cost_from()
     {
-        return $this->belongsTo('App\Models\CostFrom');
+        return $this->belongsTo('App\Models\CostForm');
     }
+
 }

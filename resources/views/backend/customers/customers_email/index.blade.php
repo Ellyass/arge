@@ -44,7 +44,6 @@
                             </td>
                             @endif
                             <td><a href="{{route('email_edit',['id' => $email->id])}}"><button type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></a></td>
-
                             @if($email->is_deleted==0)
                                 <td><a href="{{route('email_destroy', ['id' => $email->id])}}"><button type="button" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></button></a> </td>
                             @else
@@ -71,12 +70,10 @@
                 'autoWidth'   : true
             })
         })
-
     </script>
 
 
 @endsection
-
 @section('css')@endsection
 @section('js')@endsection
 

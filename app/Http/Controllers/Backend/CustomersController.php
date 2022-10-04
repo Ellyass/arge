@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CustomerType;
 use App\Models\Customer;
 use App\Models\CustomerEmail;
+
 //use MailChimp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,42 +26,34 @@ class CustomersController extends Controller
 //        {
 //            return back()->with('error','Herhangi Bir Modül Seçilmedi');
 //        }
-            $customers =Customer::create([
-                'name' => $request->name,
-                'address' => $request->address,
-                'status' => $request->status,
-                'is_deleted' => 0
-            ]);
-            if ($customers)
-            {
-                $customer_types_id = $request->customer_type_id;
-                if (isset($customer_types_id) && count($customer_types_id) > 0)
-                {
-                    foreach ($customer_types_id as $key => $customer_type_id)
-                    {
-                        $customer_types=CustomerType::create([
-                            'customer_id' => $customers->id,
-                            'type' => $customer_type_id,
-                        ]);
-                    }
-                    if ($customer_types)
-                    {
-                        return redirect(route('customer_Index'))->with('success' , 'İşlem Başarılı..');
+        $customers = Customer::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'status' => $request->status,
+            'is_deleted' => 0
+        ]);
+        if ($customers) {
+            $customer_types_id = $request->customer_type_id;
+            if (isset($customer_types_id) && count($customer_types_id) > 0) {
+                foreach ($customer_types_id as $key => $customer_type_id) {
+                    $customer_types = CustomerType::create([
+                        'customer_id' => $customers->id,
+                        'type' => $customer_type_id,
+                    ]);
+                }
+                if ($customer_types) {
+                    return redirect(route('customer_Index'))->with('success', 'İşlem Başarılı..');
 
-                    }
-                    else
-                    {
-                        return back()->with('danger','İşlem başarısız.');
-
-                    }
+                } else {
+                    return back()->with('danger', 'İşlem başarısız.');
 
                 }
 
             }
-            else
-            {
-                return back()->with('danger','İşlem başarısız.');
-            }
+
+        } else {
+            return back()->with('danger', 'İşlem başarısız.');
+        }
 
     }
 
@@ -74,44 +67,43 @@ class CustomersController extends Controller
 
     public function edit($id)
     {
-        $edit = Customer::where('id',$id)->first();
-        return view('backend.customers.customer_edit',compact('edit'));
+        $edit = Customer::where('id', $id)->first();
+        return view('backend.customers.customer_edit', compact('edit'));
     }
 
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $customer = Customer::find($id);
         $customers_email = CustomerEmail::where('customer_id')->get();
 
-        if($request->isMethod('put'))
-        {
-            $this->validate($request,[
-                'name' => 'required|unique:$customer,name,'.$customer->id,
+        if ($request->isMethod('put')) {
+            $this->validate($request, [
+                'name' => 'required|unique:$customer,name,' . $customer->id,
             ]);
         }
         $updateData = [
-          'name' => $request->name,
-          'address' => $request->address,
-          'status' => $request->status,
-          'is_deleted' => 0
+            'name' => $request->name,
+            'address' => $request->address,
+            'status' => $request->status,
+            'is_deleted' => 0
         ];
         $customer->update($updateData);
-        CustomerType::where('customer_id',$customer->id)->delete();
+        CustomerType::where('customer_id', $customer->id)->delete();
 
-        if($customer)
-        {
+        if ($customer) {
             $customer_types_id = $request->customer_type_id;
-            foreach ($customer_types_id as $key => $customer_type_id)
-            {
+            foreach ($customer_types_id as $key => $customer_type_id) {
                 CustomerType::create([
-                   'customer_id' => $customer->id,
-                   'type' => $customer_type_id
+                    'customer_id' => $customer->id,
+                    'type' => $customer_type_id
                 ]);
             }
         }
         return redirect(route('customer_Index'));
     }
+
+
     public function destroy($id)
     {
         $customers = Customer::find($id);
@@ -140,7 +132,7 @@ class CustomersController extends Controller
 //                MailChimp::subscribe($listId,$customer_email->email, $combine,$confirm = false);
 //            }
 //        }
-        return back()->with('success' , 'İşlem Başarılı..');
+        return back()->with('success', 'İşlem Başarılı..');
 
 
     }

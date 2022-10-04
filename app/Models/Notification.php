@@ -14,6 +14,6 @@ class Notification extends Model
     }
     public function user()
     {
-        return $this->belongsTo('App\Models\User','offer_created_user', 'id');
+        return $this->belongsTo('App\Models\Users','offer_created_user', 'id');
     }
 }

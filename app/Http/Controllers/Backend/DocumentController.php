@@ -48,11 +48,10 @@ class DocumentController extends Controller
             $newtesvik->setValue('accept_type', isset($request->accept_type) ? $request->accept_type == 'Aylık' ? number_format($request->offer_money, 2, ',', '.') . ' ₺ ' . '/ ' . $request->accept_type : ' % ' . $request->offer_money : '');
             $newtesvik->setValue('kdv', $request->kdv);
             $newtesvik->setValue('offer_date', date('d.m.Y', strtotime($request->offer_date)));
-            $newtesvik->SaveAs(Storage::disk('storage')->path('offer_uploads/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
+            $newtesvik->SaveAs(Storage::disk('storage')->path('offer_uploads'. '/' . $customer->id . '/' . $random_new_tesvik . '.docx'));
 
-            $path = 'offer_uploads' . $customer->id . '/' . $random_new_tesvik . '.docx';
+            $path = 'offer_uploads' .'/'. $customer->id . '/' . $random_new_tesvik . '.docx';
 //            session(['offer_file_path' => $path]);
-           // Storage::disk('storage')->put($path, \Illuminate\Support\Facades\File::get($newtesvik));
 
 
             $offers = Offer::create([
